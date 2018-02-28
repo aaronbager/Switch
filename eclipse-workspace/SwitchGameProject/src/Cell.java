@@ -1,4 +1,5 @@
-import java.awt.Color;
+import javafx.scene.paint.Color;
+//import java.awt.Color;
 
 public class Cell implements Comparable<Cell> {
     public int row, column, value;
@@ -51,7 +52,7 @@ public class Cell implements Comparable<Cell> {
 		this.column = column;
 	}
 	public int getValue() {
-		return value;
+		return value; 
 	}
 	public void setValue(int value) {
 		this.value = value;
@@ -61,7 +62,7 @@ public class Cell implements Comparable<Cell> {
 		case 1: c.color =color.BLACK;
 		break;
 		//if value contained in cell is 1, then change color of the tile to black.
-		case 2: c.color = color.white;
+		case 2: c.color = color.WHITE;
 		break; 
 		//if value contained in cell is 1, then change color of the tile to white. 
 		default: c.color = null;
@@ -70,8 +71,15 @@ public class Cell implements Comparable<Cell> {
 		
 			//returns the new color of the cell if changes are made. 
 	}
-	public Color getColor(Cell c){
-		return c.color;
+	public Color getColor()
+	{
+		if(value == 1) {
+			return Color.BLACK;
+		}
+		else {
+			return Color.WHITE; 
+		}
 	}
+	
 	
 }
