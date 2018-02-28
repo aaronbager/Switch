@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-import java.awt.Color;
+//import java.awt.Color;
+import javafx.scene.paint.Color; 
 import java.util.*;
 import java.util.ArrayList;
 
@@ -279,3 +280,4 @@ public boolean checkTiles(Cell c){
 		} return true;
 }
 }
+
