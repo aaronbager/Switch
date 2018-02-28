@@ -38,6 +38,14 @@ public int getBlackScore(){
 return count;
 }
 
+public void start(){
+	new Cell((rows/2),(cols/2),1);
+	new Cell(((rows/2) +1),((cols/2) +1),1);
+	new Cell((rows/2 +1),(cols/2),2);
+	new Cell((rows/2),(cols/2 +1),2);
+}
+
+
 public int getWhiteScore(){
 	int count=0;
 	for(int i = 0; i<=rows; i++){
@@ -50,24 +58,36 @@ public int getWhiteScore(){
 }
 return count;
 }
+public void placeTile(int r, int c){
+	GameStatus status = GameStatus.IN_PROGRESS;
+	if(status == GameStatus.PlayerOneTurn){
+		new Cell(r,c,1);
+}
+	if(status == GameStatus.PlayerTwoTurn){
+		new Cell(r,c,2);
+}
+	}
+		
 
 
-public void resizeBoard(int height, int width) {
+public void resizeBoard(int size) {
 	// Make sure win value a power of 2, row/col valid values.
 	// -want at least a 2x2 board
-	if( height > 1 && width > 1 ) {
-		rows = height;
-		cols = width;
+	if( size > 4 && size%2==0) {
+		rows = size;
+		cols = size;
 		
-		for(int i = 0; i< height; i++)
-			for(int j=0; j < width; j++)
+		for(int i = 0; i< size; i++)
+			for(int j=0; j < size; j++)
 				new Cell(i,j,0);
 		// create a blank 2D array (all zeros) for board
 		//board = new Cell[rows][cols];
 		status = GameStatus.IN_PROGRESS;
 	}
-	else
+	else{
+		System.out.println("Please enter an positive even interger that is greater than 4");
 		throw new IllegalArgumentException();
+}
 }
 
 public ArrayList<Cell> getNonEmptyTiles() {
@@ -134,10 +154,8 @@ public boolean checkTiles(Cell c){
 			temp.setRow(i);
 			temp.setColumn(c.getColumn());
 			check.add(temp);
-			//adding all cells that are different color to ArrayList
-			//c.getValue might need to be changed to 0
-			//if(c.getValue() == board[i][c.column].getValue()){
 			if(board[i][c.column].getValue() == 0){
+				placeTile(i, c.getColumn());
 			for(Cell d: check){
 				d.setValue(c.getValue());
 				d.setColor(c);
