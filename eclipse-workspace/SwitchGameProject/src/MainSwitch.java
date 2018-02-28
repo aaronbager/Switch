@@ -28,16 +28,17 @@ public class MainSwitch extends Application{
 	TextField columnField = new TextField(); 
 	int row, column; 
 	reversi rules = new reversi(); 
-	rules.resizeBoard(BOARD_SIZE, BOARD_SIZE);
+	
 	
 	
 	
 	public static void main(String args[])
 	{
-
+		
 		launch(args);
 	}
 	public void start(Stage primaryStage) {
+		rules.resizeBoard(BOARD_SIZE);
 		buildBoard(board);
 		board = putSquaresOnBoard(board);
 		board.setPadding(new Insets(15, 15, 15, 15));
@@ -47,11 +48,11 @@ public class MainSwitch extends Application{
 		primaryStage.show();
 		commitButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				row = Integer.parseInt(rowField.getText());
-				column = Integer.parseInt(columnField.getText());
+				row = Integer.parseInt(rowField.getText()) - 1;
+				column = Integer.parseInt(columnField.getText()) - 1;
 				gamePieces[piecesUsed] = new Cell(row, column, 1);
 				board.add(new Circle(32, gamePieces[piecesUsed].getColor()), gamePieces[piecesUsed].getRow(), gamePieces[piecesUsed].getColumn());
-				
+				rules.checkTiles(gamePieces[piecesUsed]);
 			}
 		});
 		
@@ -84,14 +85,19 @@ public class MainSwitch extends Application{
 			}
 		}
 		//add initial pieces here
-		gamePieces[0] = new Cell(4, 3, 1);
-		gamePieces[1] = new Cell(4, 4, 2);
-		gamePieces[2] = new Cell(3, 4, 1);
-		gamePieces[3] = new Cell(3, 3, 2);
+		gamePieces[0] = new Cell(4, 3, 0);
+		gamePieces[1] = new Cell(4, 4, 1);
+		gamePieces[2] = new Cell(3, 4, 0);
+		gamePieces[3] = new Cell(3, 3, 1);
 		board.add(new Circle(32, gamePieces[0].getColor()), gamePieces[0].getRow(), gamePieces[0].getColumn());
 		board.add(new Circle(32, gamePieces[1].getColor()), gamePieces[1].getRow(), gamePieces[1].getColumn());
 		board.add(new Circle(32, gamePieces[2].getColor()), gamePieces[2].getRow(), gamePieces[2].getColumn());
 		board.add(new Circle(32, gamePieces[3].getColor()), gamePieces[3].getRow(), gamePieces[3].getColumn());
+		rules.start();
+		//rules.checkTiles(gamePieces[0]);
+		//rules.checkTiles(gamePieces[1]);
+		//rules.checkTiles(gamePieces[2]);
+		//rules.checkTiles(gamePieces[3]);
 		board.add(rowField, 9, 9);
 		board.add(columnField, 9, 10);
 		board.add(commitButton, 9, 11);
