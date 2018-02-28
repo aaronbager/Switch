@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.awt.Color;
 import java.util.*;
 import java.util.ArrayList;
 
@@ -18,16 +19,36 @@ public int getRows(){
 }
 
 public int getCols(){
-return cols;
+	return cols;
 }
 
 public GameStatus getStatus(){
 	return status; 
 }
-public int getScore(){
-for(int i = 0; i<=rows; i++){
-	
+public int getBlackScore(){
+	int count=0;
+	for(int i = 0; i<=rows; i++){
+		for(int j = 0;j<=cols; j++ ){
+			if(board[i][j].getColor() == Color.BLACK){
+				count++;
+			}
+				
+		}
 }
+return count;
+}
+
+public int getWhiteScore(){
+	int count=0;
+	for(int i = 0; i<=rows; i++){
+		for(int j = 0;j<=cols; j++ ){
+			if(board[i][j].getColor() == Color.WHITE){
+				count++;
+			}
+				
+		}
+}
+return count;
 }
 
 
@@ -38,9 +59,11 @@ public void resizeBoard(int height, int width) {
 		rows = height;
 		cols = width;
 		
-		
+		for(int i = 0; i< height; i++)
+			for(int j=0; j < width; j++)
+				new Cell(i,j,0);
 		// create a blank 2D array (all zeros) for board
-		board = new Cell[rows][cols];
+		//board = new Cell[rows][cols];
 		status = GameStatus.IN_PROGRESS;
 	}
 	else
@@ -58,10 +81,11 @@ public ArrayList<Cell> getNonEmptyTiles() {
 			// create a cell for each non-empty location on board
 			// to store within the ArrayList
 			if(board[i][j] != null) {
+				int v = board[i][j].getValue();
 				// assign the row, col of non-empty cell in cell object
 				//c = new Cell(i, j, board[i][j]);
 				// add this cell to the list
-				nonEmpty.add(new Cell(i, j, board[i][j]));
+				nonEmpty.add(new Cell(i, j, v));
 			}
 		}
 	}
@@ -88,7 +112,7 @@ private boolean movePossible() {
 					}
 				}
 			}
-		status = GameStatus.USER_LOST;
+		status = GameStatus.PlayerTwoWins;
 		return false;
 	}
 	status = GameStatus.IN_PROGRESS; // put here?
