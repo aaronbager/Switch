@@ -1,112 +1,105 @@
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler; 
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.VPos;
-import javafx.scene.Scene;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.RowConstraints; 
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage; 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle; 
-//import javafx.scene.input.MouseEvent; 
-import javafx.scene.shape.Circle; 
-import javafx.scene.control.Button; 
-import javafx.scene.control.TextField; 
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
-public class MainSwitch extends Application{
-	final int BOARD_SIZE = 8; 
-	final int SQUARES = 64;
-	GridPane board = new GridPane(); 
-	Cell[] gamePieces = new Cell[64];
-	Rectangle[][] place = new Rectangle[8][8];
-	int piecesUsed = 4;
-	Button commitButton = new Button("Commit");
-	TextField rowField = new TextField();
-	TextField columnField = new TextField(); 
-	int row, column; 
-	reversi rules = new reversi(); 
-	
-	
-	
-	
-	public static void main(String args[])
-	{
-		
-		launch(args);
-	}
-	public void start(Stage primaryStage) {
-		rules.resizeBoard(BOARD_SIZE);
-		buildBoard(board);
-		board = putSquaresOnBoard(board);
-		board.setPadding(new Insets(15, 15, 15, 15));
-		Scene scene = new Scene(board, 700, 700);
-		primaryStage.setTitle("Reversi");
-		primaryStage.setScene(scene);
-		primaryStage.show();
-		commitButton.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				row = Integer.parseInt(rowField.getText()) - 1;
-				column = Integer.parseInt(columnField.getText()) - 1;
-				gamePieces[piecesUsed] = new Cell(row, column, 1);
-				board.add(new Circle(32, gamePieces[piecesUsed].getColor()), gamePieces[piecesUsed].getRow(), gamePieces[piecesUsed].getColumn());
-				rules.checkTiles(gamePieces[piecesUsed]);
-			}
-		});
-		
-	}
-	private void buildBoard(GridPane board) {
-		for(int i = 0; i < BOARD_SIZE; i++) {
-			RowConstraints rc = new RowConstraints(); 
-			rc.setMinHeight(SQUARES);
-			rc.setMaxHeight(SQUARES);
-			rc.setPrefHeight(SQUARES);
-			rc.setValignment(VPos.CENTER);
-			board.getRowConstraints().add(rc);
-			
-			ColumnConstraints cc = new ColumnConstraints();
-			cc.setMinWidth(SQUARES);
-			cc.setMaxWidth(SQUARES);
-			cc.setPrefWidth(SQUARES);
-			cc.setHalignment(HPos.CENTER);
-			board.getColumnConstraints().add(cc);
-			
-		}
-	}
-	private GridPane putSquaresOnBoard(GridPane board) {
-		Color[] sqColors = new Color[] {Color.GREEN, Color.DARKGREEN};
-		for(int i = 0; i < BOARD_SIZE; i++) {
-			for(int j = 0; j < BOARD_SIZE; j++) {
-				//Rectangle 
-				board.add(new Rectangle(SQUARES, SQUARES,sqColors[(i+j)%2]),i,j);
-				place[i][j] = new Rectangle(SQUARES,SQUARES,sqColors[(i+j)%2]); 
-			}
-		}
-		//add initial pieces here
-		gamePieces[0] = new Cell(4, 3, 0);
-		gamePieces[1] = new Cell(4, 4, 1);
-		gamePieces[2] = new Cell(3, 4, 0);
-		gamePieces[3] = new Cell(3, 3, 1);
-		board.add(new Circle(32, gamePieces[0].getColor()), gamePieces[0].getRow(), gamePieces[0].getColumn());
-		board.add(new Circle(32, gamePieces[1].getColor()), gamePieces[1].getRow(), gamePieces[1].getColumn());
-		board.add(new Circle(32, gamePieces[2].getColor()), gamePieces[2].getRow(), gamePieces[2].getColumn());
-		board.add(new Circle(32, gamePieces[3].getColor()), gamePieces[3].getRow(), gamePieces[3].getColumn());
-		rules.start();
-		//rules.checkTiles(gamePieces[0]);
-		//rules.checkTiles(gamePieces[1]);
-		//rules.checkTiles(gamePieces[2]);
-		//rules.checkTiles(gamePieces[3]);
-		board.add(rowField, 9, 9);
-		board.add(columnField, 9, 10);
-		board.add(commitButton, 9, 11);
-		
-		
-		
-		return board;
-	}
-	private void placePiecesOnBoard(GridPane board){
-		
-	}
+public class MainSwitch implements KeyEventDispatcher, ActionListener {
+
+    private final static int DEFAULT_SIZE = 8;
+    private JFrame top;
+    private JPanel gamePanel;
+    private JLabel[][] gameBoardUI;
+    private JMenuItem reset, quit;
+    private NumberGame theGame;
+    /* TODO: declare your game1024.NumberGame variable */
+
+    public GUI()
+    {
+        top = new JFrame ("Insert a title here");
+        /* TODO: instantiate the game1024.NumberGame object */
+
+        gamePanel = new JPanel();
+        gamePanel.setLayout(new GridLayout(DEFAULT_SIZE, DEFAULT_SIZE));
+        top.add(gamePanel, BorderLayout.CENTER);
+        KeyboardFocusManager kManager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        kManager.addKeyEventDispatcher(this);
+
+        gameBoardUI = new JLabel[DEFAULT_SIZE][DEFAULT_SIZE];
+        Font myTextFont = new Font(Font.SERIF, Font.BOLD, 40);
+        for (int k = 0; k < gameBoardUI.length; k++)
+            for (int m = 0; m < gameBoardUI[k].length; m++)
+            {
+                gameBoardUI[k][m] = new JLabel("X", JLabel.CENTER);
+                gameBoardUI[k][m].setFont(myTextFont);
+                gameBoardUI[k][m].setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+                gameBoardUI[k][m].setPreferredSize(new Dimension (100, 100));
+                gamePanel.add(gameBoardUI[k][m]);
+            }
+
+        JMenuBar mb = new JMenuBar();
+        top.setJMenuBar(mb);
+        JMenu game = new JMenu("Game");
+        mb.add(game);
+        reset = new JMenuItem ("Reset");
+        reset.addActionListener(this);
+        quit = new JMenuItem("Quit");
+        quit.addActionListener(this);
+        game.add(reset);
+        game.addSeparator();
+        game.add(quit);
+
+        /* TODO: update the UI using the result of getNonEmptyCells() of your game1024.NumberGame object */
+        top.pack();
+        top.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        top.setVisible(true);
+    }
+
+    public static void main (String[] args)
+    {
+        new GUI();
+    }
+
+    private void updateUI()
+    {
+        /* TODO: complete this method to update the JLabels using the result
+            provided by the getNonEmptyCells() method of game1024.NumberGame
+
+            Use JLabel's setText() method to update the text on each JLabel
+         */
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent e) {
+        if (e.getID() == KeyEvent.KEY_PRESSED) {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_UP:
+
+                    /* TODO: invoked the move() method of your game1024.NumberGame */
+
+                    break;
+
+                /* TODO: complete the remaining three case labels */
+
+            }
+
+
+            /* TODO: update the game board (invoke the private updateUI() method */
+
+            /* TODO: check if the player has won and display appropriate dialog */
+
+            /* TODO: check if the player can't move further, and ask whether she
+                wants to play again?
+            */
+        }
+        return true;
+    }
+
+    @Override
+    public void actionPerformed (ActionEvent e)
+    {
+        Object which = e.getSource();
+        /* TODO add your code to respond to the menu items */
+    }
 }
