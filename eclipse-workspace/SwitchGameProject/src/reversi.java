@@ -232,16 +232,30 @@ public boolean checkTiles(Cell c){
 		//Checking the diagonal down-right of the placed tile
 		for(int i = c.row + 1; i < getRows(); i++){
 			int j = c.column - c.row + i;
+			temp.setColumn(j);
+			temp.setRow(i);
+			check.add(temp);
 			if(c.getValue() == board[i][c.column].getValue()){
 				//Flip all the tiles in between
+				for(Cell d: check){
+					d.setValue(c.getValue());
+					d.setColor(c);
+				}
 			}	
 		}
 
 		//Checking the diagonal up-right of the placed tile
 		for(int i = c.row + 1; i < getRows(); i++){
 			int j = c.column + c.row - i;
+			temp.setColumn(j);
+			temp.setRow(i);
+			check.add(temp);
 			if(c.getValue() == board[i][c.column].getValue()){
 				//Flip all the tiles in between
+				for(Cell d: check){
+					d.setValue(c.getValue());
+					d.setColor(c);
+				}
 			}
 			return true;
 		} return true;
