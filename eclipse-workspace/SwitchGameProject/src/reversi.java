@@ -60,7 +60,7 @@ public int getWhiteScore(){
 return count;
 }
 public void placeTile(int r, int c){
-	GameStatus status = GameStatus.IN_PROGRESS;
+	
 	if(status == GameStatus.PlayerOneTurn){
 		new Cell(r,c,1);
 }
@@ -112,6 +112,20 @@ public ArrayList<Cell> getNonEmptyTiles() {
 	}
 	return nonEmpty;
 }
+public boolean legalMove(int r, int c){
+	if(status == GameStatus.PlayerOneTurn){
+		Cell move = new Cell(r,c,1);
+		checkTiles(move);
+		for(int i = move.row - 1; i >= 0; i--){
+		if(board[i][c].getValue() == move.getValue())
+			
+		}
+}
+	if(status == GameStatus.PlayerTwoTurn){
+		new Cell(r,c,2);
+}
+	}
+
 private boolean movePossible() {
 	// check if space available
 	getNonEmptyTiles(); // find all non-empty tiles
@@ -147,7 +161,9 @@ public boolean checkTiles(Cell c){
 	//
 	//
 	//
-	
+	placeTile(c.getRow(),c.getColumn());
+	Stack<Cell[][]> tempBoard = new Stack<Cell[][]>();
+	tempBoard.push(board);
 	ArrayList<Cell> check = new ArrayList<Cell>();
 	//Checking to the right of the placed tile
 	Cell temp = new Cell();
@@ -155,11 +171,13 @@ public boolean checkTiles(Cell c){
 			temp.setRow(i);
 			temp.setColumn(c.getColumn());
 			check.add(temp);
+			
 			if(board[i][c.column].getValue() == 0){
 				placeTile(i, c.getColumn());
-			for(Cell d: check){
-				d.setValue(c.getValue());
-				d.setColor(c);
+				
+				for(Cell d: check){
+					d.setValue(c.getValue());
+					d.setColor(c);
 			}
 			check.clear();
 				//Flip all the tiles in between
@@ -277,7 +295,8 @@ public boolean checkTiles(Cell c){
 				}
 			}
 			return true;
-		} return true;
+		} 
+		if (tempBoard.pop() == board)
+			return false;
 }
 }
-
