@@ -26,7 +26,7 @@ public class Main extends Application{
 	GridPane board = new GridPane(); 
 	boolean isLegal = false; 
 	int value;
-	Image reversiSquare = new Image(getClass().getResourceAsStream("reversiSquare.jpg"));
+	Image reversiSquare = new Image(getClass().getResourceAsStream("reversiSquare.jpg"), 50, 50, false, false);
 	public static void main(String args[]) {
 		
 		//Stage primaryStage = new Stage(); 
