@@ -21,22 +21,30 @@ public class Rules {
 
 	boolean isMoveLegal(int row, int column)
 	{
-		return true; 
+		if(board[row][column] == 0)
+			return true; 
+		
+		return false; 
 	}
 	int[][] placeTile(int row, int column){
 		
 		
 		System.out.println(Arrays.deepToString(board).replace("], ", "]\n"));
+		board[row][column] = turn; 
+		int oppositeTurn = (turn == 1) ? 2 : 1;
 		System.out.println();
-		//check left
 
 		//check left
-	       int counter = 0;
-	       for(int i = column; i > 0; i-- ) {
+		int counter = 0; 
+	       OUTER:for(int i = column; i > 0; i-- ) {
+	    	   counter++; 
 	           if(board[row][i] == board[row][i-1]) {
-	               for(int j = i - 1; j < column; j++) {
+	               for(int j = i + 1; j > column; j--) {
 	                   board[row][j] = turn;
 	               }
+	               if(board[row][i] == 0) {
+		               break OUTER;
+		           }
 	                break;
 	           }
 	           
@@ -44,8 +52,8 @@ public class Rules {
 	               break;
 	           }
 	       }
-		//check right
-
+	       		//check right
+		
 		/*for(int i = row; i < 8; i++ ) {
 			System.out.println(Arrays.deepToString(board).replace("], ", "]\n"));
 			System.out.println();
@@ -59,7 +67,7 @@ public class Rules {
 				}
 			}*/
 	       
-	       for(int i = column; i < 8; i++ ) {
+	       /*for(int i = column + 1; i < 8; i++ ) {
 	           if(board[row][i] == board[row][i+1]) {
 	               for(int j = i + 1; j < column; j--) {
 	                   board[row][j] = turn;
@@ -71,7 +79,7 @@ public class Rules {
 				break; 
 			}
 		}
-		//check up
+*/		//check up
 		//check down
 		//check diagonal up left
 		//check diagonal down left

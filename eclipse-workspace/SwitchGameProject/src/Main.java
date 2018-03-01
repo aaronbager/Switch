@@ -26,7 +26,7 @@ public class Main extends Application{
 	GridPane board = new GridPane(); 
 	boolean isLegal = false; 
 	int value;
-	Image reversiSquare = new Image(getClass().getResourceAsStream("reversiSquare.jpg"), 50, 50, false, false);
+	//Image reversiSquare = new Image(getClass().getResourceAsStream("reversiSquare.jpg"), 50, 50, false, false);
 	public static void main(String args[]) {
 		
 		//Stage primaryStage = new Stage(); 
@@ -44,7 +44,7 @@ public class Main extends Application{
 				row = i; 
 				game_board[i][j] = 0; 
 				gameBoardNodes[i][j] = new Button();
-				gameBoardNodes[i][j].setGraphic(new ImageView(reversiSquare));
+		//		gameBoardNodes[i][j].setGraphic(new ImageView(reversiSquare));
 				gameBoardNodes[i][j].setPrefHeight(64);
 				gameBoardNodes[i][j].setPrefWidth(64);
 				//gameBoard[i][j] = new Cell(i,j,0);
