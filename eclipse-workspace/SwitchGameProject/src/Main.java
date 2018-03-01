@@ -2,7 +2,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane; 
-import javafx.scene.Node; 
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -77,16 +79,30 @@ public class Main extends Application{
 						blackScoreLabel.setText("Black Score:" + String.valueOf(rules.getScore(1)));
 						whiteScoreLabel.setText("White Score:" + String.valueOf(rules.getScore(2)));
 						int possibleMoves = 0; 
-						for(int i = 0; i < 7; i++) {
-							for(int j = 0; j < 7; j++) {
+						for(int i = 0; i < 8; i++) {
+							for(int j = 0; j < 8; j++) {
 								if(rules.isMoveLegal(i, j)) {
 									possibleMoves++; 
 								}
-								
+							}
+						}
 								if(possibleMoves == 0) {
 									int winner = rules.declareWinner(); 
-								}
-							}
+									Alert alert = new Alert(AlertType.INFORMATION);
+									alert.setTitle("WINNER");
+										if(winner == 1) {
+											alert.setHeaderText("Black has won!");
+										}
+										if(winner == 2) {
+											alert.setHeaderText("White has won!");
+										}
+									
+									alert.setContentText("congratulations, click here to exit");
+
+									alert.showAndWait();
+									System.exit(0);
+							
+						
 						}
 					}
 				});
