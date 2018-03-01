@@ -1,10 +1,10 @@
 import java.util.Arrays;
 
 public class Rules {
-	int[][] board = new int[8][8]; //represents the board, 0 is empty, 1 is black, 2 is white
-	int turn; //1 for black, 2 for white, 3 for black wins, 4 for white wins
+	private int[][] board = new int[8][8]; //represents the board, 0 is empty, 1 is black, 2 is white
+	private int turn; //1 for black, 2 for white, 3 for black wins, 4 for white wins
 	
-	int[][] start(){ // initializes the rules class
+	public int[][] start(){ // initializes the rules class
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
 				//set all the values in board to 0, showing all spaces are empty
@@ -19,14 +19,14 @@ public class Rules {
 		return board; 
 	}
 
-	boolean isMoveLegal(int row, int column)
+	public boolean isMoveLegal(int row, int column)
 	{
 		if(board[row][column] == 0)
 			return true; 
 		
 		return false; 
 	}
-	int[][] placeTile(int row, int column){
+	public int[][] placeTile(int row, int column){
 		
 		
 		System.out.println(Arrays.deepToString(board).replace("], ", "]\n"));
@@ -131,7 +131,41 @@ public class Rules {
 		} //changes turn
 		return board;
 	}
-	int getTurn() {
+	public int declareWinner() {
+		int blackPieces = 0;
+		int whitePieces = 0; 
+		for(int i = 0; i < 7; i++) {			
+			for(int j = 0; j < 7; j++) {
+				if(board[i][j] == 1) {
+					blackPieces++;
+				}
+				else if(board[i][j] == 2) {
+					whitePieces++; 
+				}
+			}
+		}
+		if(blackPieces > whitePieces) {
+			return 1; 
+		}
+		else if(blackPieces < whitePieces) {
+			return 2; 
+		}
+		else {
+			return 3; 
+		}
+	}
+	public int getTurn() {
 		return turn; 
+	}
+	public int getScore(int color) {
+		int score = 0; 
+		for(int i = 0; i < 7; i++) {			
+			for(int j = 0; j < 7; j++) {
+				if(board[i][j] == color) {
+					score++;
+				}
+			}
+		}
+		return score; 
 	}
 }
