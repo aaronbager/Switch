@@ -75,20 +75,11 @@ public class Main extends Application{
 								for(int l = 0; l < 8; l++) {
 			//						row1 = gameBoard[k][l].getRow();
 			//						column1 = gameBoard[k][l].getColumn();
-									if(rules.getTurn() == 1)
-									{
-										board.add(new Circle(32, Color.BLACK), column, row);
-									}
-									else if(rules.getTurn() == 2)
-									{
-										board.add(new Circle(32, Color.WHITE), column, row);
-									}
-									
 									if(game_board[k][l] == 1) {
 										board.add(new Circle(32, Color.BLACK), l, k);
 									}
 									else if(game_board[k][l] == 2) {
-										board.add(new Circle(32, Color.BLACK), l, k);
+										board.add(new Circle(32, Color.WHITE), l, k);
 									}
 								}
 							}

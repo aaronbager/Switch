@@ -33,13 +33,12 @@ public class Rules {
 		board[row][column] = turn; 
 		int oppositeTurn = (turn == 1) ? 2 : 1;
 		System.out.println();
-
+		int tempColumn = column;
+		int tempRow = row; 
 		//check left
-		int counter = 0; 
-	       OUTER:for(int i = column; i > 0; i-- ) {
-	    	   counter++; 
-	           if(board[row][i] == board[row][i-1]) {
-	               for(int j = i + 1; j > column; j--) {
+	       OUTER:for(int i = column; i > 0; i-- ) { 
+	           if(board[row][i-1] == turn) {
+	               for(int j = i - 1; j < column; j++) {
 	                   board[row][j] = turn;
 	               }
 	               if(board[row][i] == 0) {
@@ -48,43 +47,82 @@ public class Rules {
 	                break;
 	           }
 	           
-	           if(board[row][i] == 0) {
+	           if(board[row][i-1] == 0) {
 	               break;
 	           }
 	       }
-	       		//check right
-		
-		/*for(int i = row; i < 8; i++ ) {
-			System.out.println(Arrays.deepToString(board).replace("], ", "]\n"));
-			System.out.println();
-			if(board[i][column] == board[i + 1][column]) {
-				System.out.println(Arrays.deepToString(board).replace("], ", "]\n"));
-				System.out.println();
-				for(int j = i + 1; j < row; j--) {
-					System.out.println(Arrays.deepToString(board).replace("], ", "]\n"));
-					System.out.println();
-					board[j][column] = turn; 
+	    //check right
+		OUTER:for(int i = column; i < 7; i++) {
+			if(board[row][i+1] == turn) {
+				for(int j = i + 1; j > column; j--) {
+					board[row][j] = turn; 
 				}
-			}*/
-	       
-	       /*for(int i = column + 1; i < 8; i++ ) {
-	           if(board[row][i] == board[row][i+1]) {
-	               for(int j = i + 1; j < column; j--) {
-	                   board[row][j] = turn;
-	               }
-	                break;
-	           }
-
-			if(board[i][column] == 0) {
+				if(board[row][i+1] == 0) {
+					break;
+				}
 				break; 
 			}
 		}
-*/		//check up
+		//check up
+	       OUTER:for(int i = row; i > 0; i-- ) { 
+	           if(board[i-1][column] == turn) {
+	               for(int j = i - 1; j < row; j++) {
+	                   board[j][column] = turn;
+	               }
+	               if(board[i-1][column] == 0) {
+		               break OUTER;
+		           }
+	                break;
+	           }
+	           
+	           if(board[i][column] == 0) {
+	               break;
+	           }
+	       }
 		//check down
+		OUTER:for(int i = row; i < 7; i++) {
+			if(board[i+1][column] == turn) {
+				for(int j = i + 1; j > row; j--) {
+					board[j][column] = turn; 
+				}
+				if(board[i][column] == 0) {
+					break OUTER;
+				}
+				break; 
+			}
+		}
 		//check diagonal up left
+	    for(int i = column; i > 0; i--) {
+	    	for(int j = row; j > 0; j--) {
+	    		if(board[j-1][i-1] == turn) {
+	    			board[j][i] = turn;
+	    		}
+	    	}
+	    }
 		//check diagonal down left
+	    for(int i = column; i > 0; i--) {
+	    	for(int j = row; j < 7; j++) {
+	    		if(board[j+1][i-1] == turn) {
+	    			board[j][i] = turn; 
+	    		}
+	    	}
+	    }
 		//check diagonal up right
+	    for(int i = column; i < 7; i++) {
+	    	for(int j = row; j < 7; j++) {
+	    		if(board[j+1][i+1] == turn) {
+	    			board[j][i] = turn; 
+	    		}
+	    	}
+	    }
 		//check diagonal down right
+	    for(int i = column; i < 7; i++) {
+	    	for(int j = row; j > 0; j--) {
+	    		if(board[j-1][i+1] == turn) {
+	    			board[j][i] = turn; 
+	    		}
+	    	}
+	    }
 		if(turn == 1) {
 			turn = 2;
 		}
