@@ -30,13 +30,13 @@ public class Main extends Application{
 	public void start(Stage primaryStage) {
 		
 		//rules.resizeBoard(8);
-		game_board = rules.start(); 
+//		game_board = rules.start(); //was throwing error, probably due to the fact array is not initialized yet
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
 				int column, row; 
 				column = i;
 				row = j; 
-				
+				game_board[i][j] = 0; 
 				gameBoardNodes[i][j] = new Button();
 				gameBoardNodes[i][j].setPrefHeight(64);
 				gameBoardNodes[i][j].setPrefWidth(64);
@@ -49,7 +49,7 @@ public class Main extends Application{
 						
 						if(rules.isMoveLegal(row, column, 1))
 						{
-							
+							game_board = rules.placeTile(row, column);
 				//			rules.legalMove(row, column); 
 			//				rules.placeTile(row, column);
 			//				gameBoard[row][column].setRow(row);
@@ -64,13 +64,20 @@ public class Main extends Application{
 								for(int l = 0; l < 8; l++) {
 			//						row1 = gameBoard[k][l].getRow();
 			//						column1 = gameBoard[k][l].getColumn();
-									if(gameBoard[k][l].getValue() == 1)
+									if(rules.getTurn() == 1)
 									{
 										board.add(new Circle(32, Color.BLACK), column, row);
 									}
-									else if(gameBoard[k][l].getValue() == 2)
+									else if(rules.getTurn() == 2)
 									{
 										board.add(new Circle(32, Color.WHITE), column, row);
+									}
+									
+									if(game_board[k][l] == 1) {
+										board.add(new Circle(32, Color.BLACK), l, k);
+									}
+									else if(game_board[k][l] == 2) {
+										board.add(new Circle(32, Color.BLACK), l, k);
 									}
 								}
 							}
@@ -86,7 +93,9 @@ public class Main extends Application{
 					}
 				});
 			}
+			
 		}
+		game_board = rules.start(); 
 //		gameBoard[3][3].setValue(2);
 //		gameBoard[3][4].setValue(1);
 //		gameBoard[4][3].setValue(1);
