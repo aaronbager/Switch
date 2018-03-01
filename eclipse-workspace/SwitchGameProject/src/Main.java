@@ -13,10 +13,13 @@ import javafx.scene.paint.Color;
 public class Main extends Application{
 	
 	Cell[][] gameBoard = new Cell[8][8];
+	int game_board[][] = new int[8][8];
 	Button[][] gameBoardNodes = new Button[8][8];
-	reversi rules = new reversi(); 
+	//reversi rules = new reversi(); 
+	Rules rules = new Rules(); 
 	GridPane board = new GridPane(); 
 	boolean isLegal = false; 
+	int value;
 	
 	public static void main(String args[]) {
 		
@@ -27,6 +30,7 @@ public class Main extends Application{
 	public void start(Stage primaryStage) {
 		
 		//rules.resizeBoard(8);
+		game_board = rules.start(); 
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
 				int column, row; 
@@ -36,23 +40,40 @@ public class Main extends Application{
 				gameBoardNodes[i][j] = new Button();
 				gameBoardNodes[i][j].setPrefHeight(64);
 				gameBoardNodes[i][j].setPrefWidth(64);
-				gameBoard[i][j] = new Cell(i,j,0);
+				//gameBoard[i][j] = new Cell(i,j,0);
 				board.add(gameBoardNodes[i][j], i, j);
 				
 				gameBoardNodes[i][j].setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
 						
-						if(rules.legalMove(row, column))
+						if(rules.isMoveLegal(row, column, 1))
 						{
 							
-							rules.legalMove(row, column); 
-							rules.placeTile(row, column);
-							gameBoard[row][column].setRow(row);
-							gameBoard[row][column].setColumn(column);
-							gameBoard[row][column].setValue(rules.passTurn()); 
-							board.add(new Circle(32, Color.WHITE), column, row);
-							gameBoard = rules.checkTiles(gameBoard[row][column]);
+				//			rules.legalMove(row, column); 
+			//				rules.placeTile(row, column);
+			//				gameBoard[row][column].setRow(row);
+					//		gameBoard[row][column].setColumn(column);
+						//	gameBoard[row][column].setValue(rules.passTurn()); 
+			//				board.add(new Circle(32, Color.WHITE), column, row);
+				//			gameBoard = rules.checkTiles(gameBoard[row][column]);
+							for(int k = 0; k < 8; k++)
+							{
+								int row1;
+								int column1; 
+								for(int l = 0; l < 8; l++) {
+			//						row1 = gameBoard[k][l].getRow();
+			//						column1 = gameBoard[k][l].getColumn();
+									if(gameBoard[k][l].getValue() == 1)
+									{
+										board.add(new Circle(32, Color.BLACK), column, row);
+									}
+									else if(gameBoard[k][l].getValue() == 2)
+									{
+										board.add(new Circle(32, Color.WHITE), column, row);
+									}
+								}
+							}
 						}
 						else {
 							System.out.println("NOT A LEGAL MOVE!");
@@ -66,6 +87,10 @@ public class Main extends Application{
 				});
 			}
 		}
+//		gameBoard[3][3].setValue(2);
+//		gameBoard[3][4].setValue(1);
+//		gameBoard[4][3].setValue(1);
+//		gameBoard[4][4].setValue(2);
 		board.add(new Circle(32, Color.WHITE), 3, 3);
 		board.add(new Circle(32, Color.BLACK), 3, 4);
 		board.add(new Circle(32, Color.BLACK), 4, 3);
@@ -75,6 +100,6 @@ public class Main extends Application{
 		primaryStage.setTitle("Othello");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		rules.start(); 
+		//rules.start(); 
 	}
 }
