@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class reversi {
 /** The number of rows (height) and columns (width). */
-private int rows,cols;
+private final int rows=8,cols=8;
 /** The game board */
 private Cell[][] board;
 /** Enumerated variable to keep track of game status. */
