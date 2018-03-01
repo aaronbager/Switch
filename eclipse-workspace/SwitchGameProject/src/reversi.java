@@ -14,6 +14,22 @@ private GameStatus status = GameStatus.IN_PROGRESS;
 /** A list of all the non-empty tiles on the board */
 private ArrayList<Cell> nonEmpty;
 
+public Cell[][] getGame(){
+	return board;
+	
+}
+public int passTurn(){
+	int v=0;
+	if(status == GameStatus.PlayerOneTurn){
+		status = GameStatus.PlayerTwoTurn;
+		 v = 2;
+	}
+	if(status == GameStatus.PlayerTwoTurn){
+		status = GameStatus.PlayerOneTurn;
+		v=1;
+	}
+	return v;
+}
 
 public int getRows(){
 	return rows;
@@ -63,9 +79,11 @@ public void placeTile(int r, int c){
 	
 	if(status == GameStatus.PlayerOneTurn){
 		new Cell(r,c,1);
+		status = GameStatus.PlayerTwoTurn; 
 }
 	if(status == GameStatus.PlayerTwoTurn){
 		new Cell(r,c,2);
+		status = GameStatus.PlayerOneTurn; 
 }
 	}
 		
@@ -294,9 +312,11 @@ public boolean checkTiles(Cell c){
 					d.setColor(c);
 				}
 			}
-			return true;
+			
 		} 
 		if (tempBoard.pop() == board)
 			return false;
+		else
+			return true;
 }
 }
