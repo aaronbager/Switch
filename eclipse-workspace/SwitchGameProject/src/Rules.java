@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class Rules {
 	int[][] board = new int[8][8]; //represents the board, 0 is empty, 1 is black, 2 is white
@@ -18,36 +19,54 @@ public class Rules {
 		return board; 
 	}
 
-	boolean isMoveLegal(int row, int column, int value)
+	boolean isMoveLegal(int row, int column)
 	{
 		return true; 
 	}
 	int[][] placeTile(int row, int column){
 		
-		board[column][row] = turn; 
 		
+		System.out.println(Arrays.deepToString(board).replace("], ", "]\n"));
+		System.out.println();
 		//check left
-		int counter = 0;
-		for(int i = row; i > 0; i-- ) {
-			if(board[column][i] == board[i - 1][column]) {
-				for(int j = i - 1; j < row; j++) {
-					board[column][j] = turn; 
-				}
-			}
-			counter ++; 
-			if(board[column][i] == 0) {
-				break; 
-			}
-		}
+
+		//check left
+	       int counter = 0;
+	       for(int i = column; i > 0; i-- ) {
+	           if(board[row][i] == board[row][i-1]) {
+	               for(int j = i - 1; j < column; j++) {
+	                   board[row][j] = turn;
+	               }
+	                break;
+	           }
+	           
+	           if(board[row][i] == 0) {
+	               break;
+	           }
+	       }
 		//check right
-		counter = 0;
-		for(int i = row; i < 8; i++ ) {
+
+		/*for(int i = row; i < 8; i++ ) {
+			System.out.println(Arrays.deepToString(board).replace("], ", "]\n"));
+			System.out.println();
 			if(board[i][column] == board[i + 1][column]) {
+				System.out.println(Arrays.deepToString(board).replace("], ", "]\n"));
+				System.out.println();
 				for(int j = i + 1; j < row; j--) {
+					System.out.println(Arrays.deepToString(board).replace("], ", "]\n"));
+					System.out.println();
 					board[j][column] = turn; 
 				}
-			}
-			counter ++; 
+			}*/
+	       
+	       for(int i = column; i < 8; i++ ) {
+	           if(board[row][i] == board[row][i+1]) {
+	               for(int j = i + 1; j < column; j--) {
+	                   board[row][j] = turn;
+	               }
+	                break;
+	           }
+
 			if(board[i][column] == 0) {
 				break; 
 			}

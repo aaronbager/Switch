@@ -3,13 +3,19 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane; 
 import javafx.scene.Node; 
-import javafx.scene.control.Button; 
-import javafx.geometry.Insets; 
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.geometry.Insets;
+
+import java.util.Arrays;
+
 import javafx.application.Application; 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler; 
 import javafx.scene.shape.Circle; 
 import javafx.scene.paint.Color; 
+ 
 public class Main extends Application{
 	
 	Cell[][] gameBoard = new Cell[8][8];
@@ -20,7 +26,7 @@ public class Main extends Application{
 	GridPane board = new GridPane(); 
 	boolean isLegal = false; 
 	int value;
-	
+	Image reversiSquare = new Image(getClass().getResourceAsStream("reversiSquare.jpg"));
 	public static void main(String args[]) {
 		
 		//Stage primaryStage = new Stage(); 
@@ -34,22 +40,27 @@ public class Main extends Application{
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
 				int column, row; 
-				column = i;
-				row = j; 
+				column = j;
+				row = i; 
 				game_board[i][j] = 0; 
 				gameBoardNodes[i][j] = new Button();
+				gameBoardNodes[i][j].setGraphic(new ImageView(reversiSquare));
 				gameBoardNodes[i][j].setPrefHeight(64);
 				gameBoardNodes[i][j].setPrefWidth(64);
 				//gameBoard[i][j] = new Cell(i,j,0);
-				board.add(gameBoardNodes[i][j], i, j);
+				board.add(gameBoardNodes[i][j], j, i);
 				
 				gameBoardNodes[i][j].setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
 						
-						if(rules.isMoveLegal(row, column, 1))
-						{
+						if(rules.isMoveLegal(row, column))
+						{	
+							System.out.println(Arrays.deepToString(game_board).replace("], ", "]\n"));
+							System.out.println();
 							game_board = rules.placeTile(row, column);
+							System.out.println(Arrays.deepToString(game_board).replace("], ", "]\n"));
+							System.out.println();
 				//			rules.legalMove(row, column); 
 			//				rules.placeTile(row, column);
 			//				gameBoard[row][column].setRow(row);
