@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class reversi {
 /** The number of rows (height) and columns (width). */
-private final int rows=8,cols=8;
+private int rows,cols;
 /** The game board */
-private Cell[][] board;
+private Cell[][] board = new Cell[8][8];
 /** Enumerated variable to keep track of game status. */
 private GameStatus status = GameStatus.IN_PROGRESS;
 /** A list of all the non-empty tiles on the board */
@@ -56,6 +56,11 @@ return count;
 }
 
 public void start(){
+	for(int i = 0; i < 8; i++) {
+		for(int j = 0; j < 8; j++) {
+			board[i][j] = new Cell(i,j,0);
+		}
+	}
 	new Cell((rows/2),(cols/2),1);
 	new Cell(((rows/2) +1),((cols/2) +1),1);
 	new Cell((rows/2 +1),(cols/2),2);
@@ -135,13 +140,15 @@ public boolean legalMove(int r, int c){
 		Cell move = new Cell(r,c,1);
 		checkTiles(move);
 		for(int i = move.row - 1; i >= 0; i--){
-		if(board[i][c].getValue() == move.getValue())
+		if(board[i][c].getValue() == move.getValue()) {
 			
 		}
 }
 	if(status == GameStatus.PlayerTwoTurn){
 		new Cell(r,c,2);
-}
+	}
+return true;}
+	return true; 
 	}
 
 private boolean movePossible() {
@@ -171,7 +178,7 @@ private boolean movePossible() {
 	status = GameStatus.IN_PROGRESS; // put here?
 	return true;
 }
-public boolean checkTiles(Cell c){
+public Cell[][] checkTiles(Cell c){
 	//
 	//for(int i = c.row + 1; i < getRows(); i++){
 	//check.add([i][c.getColumn])
@@ -314,9 +321,11 @@ public boolean checkTiles(Cell c){
 			}
 			
 		} 
-		if (tempBoard.pop() == board)
+		/*if (tempBoard.pop() == board)
 			return false;
 		else
 			return true;
+			*/
+		return board; 
 }
 }
