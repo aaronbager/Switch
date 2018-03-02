@@ -1,0 +1,291 @@
+commit a8cddeaefba535ceedfceea0c2f8ef50b3894011
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Thu Mar 1 19:12:52 2018 -0500
+
+    Update Rules.java
+
+commit 6cb6ca218d33b8b6530cd52569fbc8bc2f17b11e
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Thu Mar 1 19:11:41 2018 -0500
+
+    Update Main.java
+
+commit 31ca6071c86ff22c171257059c8858c9b681accb
+Author: jessricks <ricksgej@mail.gvsu.edu>
+Date:   Thu Mar 1 17:21:35 2018 -0500
+
+    closes games upon completion
+
+commit 86269fb4206de8adb73944313d60964327a04e4a
+Author: jessricks <ricksgej@mail.gvsu.edu>
+Date:   Thu Mar 1 16:29:44 2018 -0500
+
+    Update Rules.java
+
+commit 34616d64292f7febebaca173aeb9975de109ced9
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Thu Mar 1 15:33:52 2018 -0500
+
+    Update Rules.java
+
+commit 82e4b6984bd174459cf68113752941f25f7a1526
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Thu Mar 1 15:33:28 2018 -0500
+
+    Update Main.java
+
+commit 116885b6cf59e1b015b5c5dd87137a24a90b38e1
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Thu Mar 1 15:01:33 2018 -0500
+
+    Delete reversi.java
+
+commit 6c7aeceb513f9a19cb5f629d670533eb12d5f1c0
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Thu Mar 1 15:01:21 2018 -0500
+
+    Delete reversi.class
+
+commit 7ae4971aae910bd6f1080ada3f768d0a17727df9
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Thu Mar 1 15:01:13 2018 -0500
+
+    Delete GameStatus.java
+
+commit 141594f35827e9cdf9a71966f1ad6f7a3eafeff4
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Thu Mar 1 15:01:07 2018 -0500
+
+    Delete GameStatus.class
+
+commit 191d1b8266255989637e579816e235eda03f670e
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Thu Mar 1 15:01:00 2018 -0500
+
+    Delete GameBoard.java
+
+commit a9965d0498582aaadfea62c3ec019f09672a5ee6
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Thu Mar 1 15:00:39 2018 -0500
+
+    Delete GameBoard.class
+
+commit c6926c0b0718a6f64d0b5becfb9210198f4026a9
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Thu Mar 1 15:00:31 2018 -0500
+
+    Delete Cell.java
+
+commit a00ef201f2632cf5bd1931c4a05da98c2f678118
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Thu Mar 1 15:00:13 2018 -0500
+
+    Delete Cell.class
+
+commit 50715d2e435b78d288002b06ab5e403de2de1342
+Author: kingj <kingj@35.40.117.240>
+Date:   Thu Mar 1 14:53:18 2018 -0500
+
+    near final version
+    
+    need to fix diagonals and odd bug
+
+commit 33caef9b930d1f76ab26af1e2291cde5d374b5ed
+Author: kingj <kingj@35.40.117.240>
+Date:   Thu Mar 1 13:22:33 2018 -0500
+
+    Updated game logic
+
+commit 1446c7e195b3a7661ffc12aa260c10acd5f48ad4
+Author: Aaron Bager <kingjojo3@gmail.com>
+Date:   Thu Mar 1 10:27:30 2018 -0500
+
+    fixed image size for button
+
+commit 53e0dc878cbe3efe1d39043d1c7ec494ca067726
+Author: Aaron Bager <kingjojo3@gmail.com>
+Date:   Thu Mar 1 10:20:45 2018 -0500
+
+    Button graphics, rules changes
+    
+    Fixed up rules some more, changed buttons graphics to look like board
+    spots
+
+commit 0c4bb0c4ddf9fe90e7bb1115798431b8f9922ef7
+Author: Aaron Bager <kingjojo3@gmail.com>
+Date:   Thu Mar 1 08:07:29 2018 -0500
+
+    Got tiles to switch
+    
+    Though they seem to switch improperly
+
+commit f43c5e45db4eb813af0ce98427adf713293cd154
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Thu Mar 1 06:24:05 2018 -0500
+
+    Add files via upload
+
+commit 4bb688a9a46a2771edd677b6b996d4297cf90870
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Thu Mar 1 06:22:53 2018 -0500
+
+    Update Main.java
+
+commit 4b929c2cf0de46f24ea38378c5226bca76d3295e
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Wed Feb 28 20:59:31 2018 -0500
+
+    updated reversi
+    
+    updated reversi to pass board in checkTiles
+
+commit fb01f2f4e0e638512b56dd9c104823d1d8bc8e2d
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Wed Feb 28 20:58:18 2018 -0500
+
+    revamped main
+    
+    Revamped main, uses button array instead of cordinates, works better with reversi.java
+
+commit 3fa01d63736bd4bca666b7322dbb16e92a5e42cf
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Wed Feb 28 20:56:53 2018 -0500
+
+    Delete MainSwitch.class
+
+commit 435eb3a9346a2d725a329f5eb91a77a158295b25
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Wed Feb 28 20:56:40 2018 -0500
+
+    Delete MainSwitch.java
+
+commit 5be7ed7cc3d11be885e51cd736f3e41d24288099
+Author: stewajos <35934674+stewajos@users.noreply.github.com>
+Date:   Wed Feb 28 20:49:35 2018 -0500
+
+    Update reversi.java
+
+commit f3cd321e9278a6e64743f9cb158f32a65747a7ed
+Author: stewajos <35934674+stewajos@users.noreply.github.com>
+Date:   Wed Feb 28 20:29:45 2018 -0500
+
+    updated
+
+commit 9bbf6b7c0122f72115e30ca9436b116c67b11ba3
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Wed Feb 28 18:29:02 2018 -0500
+
+    Update MainSwitch.java
+
+commit 52a29c3d3507f353afbfc1dc180302192820f619
+Author: stewajos <35934674+stewajos@users.noreply.github.com>
+Date:   Wed Feb 28 17:57:19 2018 -0500
+
+    Update reversi.java
+
+commit a51f0084842becbee300fad9783892a23b745bad
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Wed Feb 28 16:53:24 2018 -0500
+
+    Update reversi.java
+
+commit 7ab1298d51f1d86e3b75072b2458f00594f7253a
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Wed Feb 28 16:52:49 2018 -0500
+
+    Update MainSwitch.java
+
+commit ac91d6b17b738e26ef9029ff63488eaba6be9e4d
+Author: stewajos <35934674+stewajos@users.noreply.github.com>
+Date:   Wed Feb 28 16:42:21 2018 -0500
+
+    Big changes
+
+commit c5f0ecbf20c51320c82fdfac0d72f0e573b81312
+Author: stewajos <35934674+stewajos@users.noreply.github.com>
+Date:   Wed Feb 28 16:03:03 2018 -0500
+
+    added turns
+
+commit dfbf78654c5853d20770224505e3c82b6c3e8a9b
+Author: aaronbager <35773667+aaronbager@users.noreply.github.com>
+Date:   Wed Feb 28 15:59:12 2018 -0500
+
+    Update Cell.java
+
+commit 3d390f337b4ae57d1f9314695782dfde90b5abf1
+Author: stewajos <35934674+stewajos@users.noreply.github.com>
+Date:   Wed Feb 28 15:48:48 2018 -0500
+
+    finished the class?
+
+commit 781cd4f857c0f46ae0c79eb51e403fcdaae77a33
+Author: stewajos <35934674+stewajos@users.noreply.github.com>
+Date:   Wed Feb 28 15:44:03 2018 -0500
+
+    Update reversi.java
+
+commit 6537e2153b80d6d5b37d86a8975339d59f9231e9
+Author: kingj <kingj@35.40.131.155>
+Date:   Wed Feb 28 15:25:44 2018 -0500
+
+    Update for MainSwitch
+    
+    MainSwitch will use button and textfields to allow players to place
+    pieces instead of mouse listener. Mouse LIstener will be used in final
+    release.
+
+commit 4a3b8799f1edf5de5f3601198142798ff0385eb2
+Author: kingj <kingj@35.40.131.155>
+Date:   Wed Feb 28 10:19:52 2018 -0500
+
+    Mainswitch fixed to add pieces to the board at beggining of game
+
+commit e08ee9231d5cad56a0005158758c0dc95339d4fb
+Merge: 43ab430 4eb2027
+Author: kingj <kingj@192.168.8.106>
+Date:   Fri Feb 16 07:10:04 2018 -0500
+
+    Fixed classes reversi and cell to work with javafx
+
+commit 43ab430808035ab1511e263eef97d68358d11af3
+Author: kingj <kingj@35.40.119.187>
+Date:   Mon Feb 12 15:45:53 2018 -0500
+
+    fixed reversi and javafx to work with reversi
+
+commit 69cf6c8398317566051a49199ab92e063c827551
+Author: kingj <kingj@35.40.119.187>
+Date:   Mon Feb 12 15:42:12 2018 -0500
+
+    fixed cell and reversi to work with javafx
+
+commit af31d73b3e41f8b264a264fc545a7d8506b53ccc
+Author: kingj <kingj@35.40.119.187>
+Date:   Mon Feb 12 15:33:43 2018 -0500
+
+    Fixed cell and reversi so that they are compatible with JavaFX board
+
+commit 83f55d449edc392f4273e20b2a787792516c948d
+Author: kingj <kingj@35.40.119.187>
+Date:   Mon Feb 12 15:10:29 2018 -0500
+
+    created GUI in main
+
+commit 4eb2027320e8aa39953d0476d927f97480f9185b
+Author: Aaron Bager <kingjojo3@gmail.com>
+Date:   Sat Feb 10 15:50:25 2018 -0500
+
+    Fixed reversi
+
+commit 0f627b430c9d780524d90b20e406a5743d1107bc
+Author: kingj <kingj@35.40.130.113>
+Date:   Fri Jan 26 11:39:16 2018 -0500
+
+    Initial Creation Try 2
+
+commit e7192ed341b2893b91160acd827f8219c293eda3
+Author: kingj <kingj@35.40.130.113>
+Date:   Fri Jan 26 11:33:21 2018 -0500
+
+    Initial creation
