@@ -2,9 +2,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane; 
-import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.Node; 
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -29,6 +27,7 @@ public class Main extends Application{
 	int blackScore = 0, whiteScore = 0;
 	Label whiteScoreLabel = new Label();
 	Label blackScoreLabel = new Label();
+	Label turnLabel = new Label(); 
 	
 	//Image reversiSquare = new Image(getClass().getResourceAsStream("reversiSquare.jpg"), 50, 50, false, false);
 	public static void main(String args[]) {
@@ -76,33 +75,25 @@ public class Main extends Application{
 						else {
 							System.out.println("NOT A LEGAL MOVE!");
 						}
+						if(rules.getTurn()== 1) {
+							turnLabel.setText("Black's turn!");
+						}
+						else {
+							turnLabel.setText("White's turn!");
+						}
 						blackScoreLabel.setText("Black Score:" + String.valueOf(rules.getScore(1)));
 						whiteScoreLabel.setText("White Score:" + String.valueOf(rules.getScore(2)));
 						int possibleMoves = 0; 
-						for(int i = 0; i < 8; i++) {
-							for(int j = 0; j < 8; j++) {
+						for(int i = 0; i < 7; i++) {
+							for(int j = 0; j < 7; j++) {
 								if(rules.isMoveLegal(i, j)) {
 									possibleMoves++; 
 								}
-							}
-						}
+								
 								if(possibleMoves == 0) {
 									int winner = rules.declareWinner(); 
-									Alert alert = new Alert(AlertType.INFORMATION);
-									alert.setTitle("WINNER");
-										if(winner == 1) {
-											alert.setHeaderText("Black has won!");
-										}
-										if(winner == 2) {
-											alert.setHeaderText("White has won!");
-										}
-									
-									alert.setContentText("congratulations, click here to exit");
-
-									alert.showAndWait();
-									System.exit(0);
-							
-						
+								}
+							}
 						}
 					}
 				});
@@ -111,8 +102,10 @@ public class Main extends Application{
 		}
 		board.add(blackScoreLabel, 11, 11);
 		board.add(whiteScoreLabel, 11, 12);
+		board.add(turnLabel, 11, 13);
 		blackScoreLabel.setText("Black Score: 2");
 		whiteScoreLabel.setText("White Score: 2");
+		turnLabel.setText("Black's Turn");
 		game_board = rules.start(); 
 		board.add(new Circle(32, Color.WHITE), 3, 3);
 		board.add(new Circle(32, Color.BLACK), 3, 4);
