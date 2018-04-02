@@ -1,7 +1,7 @@
+import javafx.application.Application; 
 
 public class Main {
-	public static void main(String[] args){
-        Board board = new Board();
-        board.setBoard();
-    }
+	public static void main(String[] args) {
+		Application.launch(launcher.class, args);
+	}
 }
