@@ -60,9 +60,7 @@ public void newRound(){
 	hand4.add(d4.getValue());
 	d5.roll();
 	hand4.add(d5.getValue());
-//	c3.setHand(hand4);
-	
-	
+//	c3.setHand(hand4);	
 	
 	//resetting the bid
 	activeValue = 0;
@@ -89,14 +87,16 @@ public boolean bullShit(Player pl, Player pl2){
 	ArrayList<Integer> temp = new ArrayList<Integer>();
 	int count = 0;
 	temp = p1.getHand();
+	allHands.addAll(pl.getHand());
+	allHands.addAll(pl2.getHand());
 	//getting all dice values
-	for(int i =0; i<temp.size(); i++)
-		allHands.add(temp.get(i));
-	
-	temp = p2.getHand();
-	for(int i =0; i<temp.size(); i++)
-		allHands.add(temp.get(i));
-	
+//	for(int i =0; i<temp.size(); i++)
+//		allHands.add(temp.get(i));
+//	
+//	temp = p2.getHand();
+//	for(int i =0; i<temp.size(); i++)
+//		allHands.add(temp.get(i));
+//	
 //	temp = p3.getHand();
 //	for(int i =0; i<temp.size(); i++)
 //		allHands.add(temp.get(i));
