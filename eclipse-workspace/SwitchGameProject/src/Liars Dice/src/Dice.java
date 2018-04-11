@@ -180,7 +180,6 @@ public class Dice extends JPanel implements MouseListener, Comparable{
     }
     public void setValue(int v){
     	myValue = v;
-    	repaint(v);
     }
 
     /*****************************************************************
