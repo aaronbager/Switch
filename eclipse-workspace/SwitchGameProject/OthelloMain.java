@@ -1,3 +1,4 @@
+package gameSet;
 /**
  * class that houses the main function
  * @author Aaron Bager, Jessica Ricksgers, Cody Chinn, Joshua Stuart
@@ -20,7 +21,7 @@ public class OthelloMain extends Application {
 	
 	private int[][] gameBoard = new int[8][8];
 	private Button[][] gameBoardNodes = new Button[8][8]; 
-	private Rules rules = new Rules(); 
+	private OthelloRules rules = new OthelloRules(); 
 	private GridPane board = new GridPane(); 
 	private boolean isLegal = false; 
 	private int blackScore = 0, whiteScore = 0;

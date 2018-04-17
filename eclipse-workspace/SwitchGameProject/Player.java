@@ -1,3 +1,4 @@
+package gameSet;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 public class Player {
@@ -14,7 +15,14 @@ public class Player {
 	Dice d3 = new Dice();
 	Dice d4 = new Dice();
 	Dice d5 = new Dice();
-
+	
+	boolean playerTurn ; 
+	public boolean getTurn(){
+		return playerTurn;
+	}
+	public void setPlayerTurn(boolean b){
+		playerTurn = b;
+	}
 	public int getNumDice(){
 		return numDice;
 	}
@@ -122,24 +130,30 @@ public class Player {
 				d3.setFreeze(true);
 				d4.setFreeze(true);
 				d5.setFreeze(true);
+				numDice--;
 		break;
 		case 2: hand.remove(1);
 				d2.setFreeze(true);
 				d3.setFreeze(true);
 				d4.setFreeze(true);
 				d5.setFreeze(true);
+				numDice--;
 		break;
 		case 3: hand.remove(2);
 				d3.setFreeze(true);
 				d4.setFreeze(true);
 				d5.setFreeze(true);
+				numDice--;
 		break;
 		case 4: hand.remove(3);
 				d4.setFreeze(true);
 				d5.setFreeze(true);
+				numDice--;
 		break;
 		case 5: hand.remove(4);
 				d5.setFreeze(true);
+				
+				numDice--;
 		break;
 		}
 		System.out.println("You have "+ hand.size()+ " dice left.");

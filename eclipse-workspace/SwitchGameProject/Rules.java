@@ -1,413 +1,191 @@
-/**
- * Represents the rule set to play othello. Checks to see if move is legal, 
- * and will change pieces accordingly as game is played.
- * 
- * @author Aaron Bager, Jessica Ricksgers, Cody Chinn, Joshua Stuart
- * @version 1.0
- */
-
-import static org.junit.Assert.assertTrue;
-
-import java.util.Arrays;
-import junit.framework.*; 
+package gameSet;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Rules {
-	private int[][] board = new int[8][8]; //represents the board, 0 is empty, 1 is black, 2 is white
-	private int turn; //1 for black, 2 for white
-	/**
-	 * Used at the beggining to place initial pieces
-	 * @return A gameboard with the initial pieces placed
-	 */
-	public int[][] start() { // initializes the rules class
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				//set all the values in board to 0, showing all spaces are empty
-				board[i][j] = 0;
-			}
-		}
-		board[3][3] = 2;
-		board[3][4] = 1;
-		board[4][3] = 1;
-		board[4][4] = 2; 
-		turn = 1; 
-		return board; 
+	Player p1 = new Player();
+	Player p2 = new Player();
+	Player p3 = new Player();
+	Player p4 = new Player();
+	Dice d1 = new Dice();
+	Dice d2 = new Dice();
+	Dice d3 = new Dice();
+	Dice d4 = new Dice();
+	Dice d5 = new Dice();
+	int activeValue = 0;
+	int activenumDice = 0;
+
+	public Rules() {
+
 	}
+
 	/**
+	 * This method is invoked at the start 
+	 * of each round to change the hands of
+	 * all players
 	 * 
-	 * @param row the row where the piece is being plaed
-	 * @param column the column where the piece is being placed
-	 * @return A boolean that shows whether or not the move can be made by the rules
 	 */
-	boolean isMoveLegal(final int row, final int column)
-	{	
-		if (board[row][column] == 0) {
-			
-			if (checkNeighbors(row, column)) {
-			
-				return true;
-			}
-		}
-		
-		return false; 
-		
+	public void newRound() {
+
+		ArrayList<Integer> hand2 = new ArrayList<Integer>();
+		ArrayList<Integer> hand3 = new ArrayList<Integer>();
+		ArrayList<Integer> hand4 = new ArrayList<Integer>();
+		// giving player 2 a new hand
+		d1.roll();
+		hand2.add(d1.getValue());
+		d2.roll();
+		hand2.add(d2.getValue());
+		d3.roll();
+		hand2.add(d3.getValue());
+		d4.roll();
+		hand2.add(d4.getValue());
+		d5.roll();
+		hand2.add(d5.getValue());
+		// c1.setHand(hand2);
+
+		d1.roll();
+		hand3.add(d1.getValue());
+		d2.roll();
+		hand3.add(d2.getValue());
+		d3.roll();
+		hand3.add(d3.getValue());
+		d4.roll();
+		hand3.add(d4.getValue());
+		d5.roll();
+		hand3.add(d5.getValue());
+		// c2.setHand(hand3);
+
+		d1.roll();
+		hand4.add(d1.getValue());
+		d2.roll();
+		hand4.add(d2.getValue());
+		d3.roll();
+		hand4.add(d3.getValue());
+		d4.roll();
+		hand4.add(d4.getValue());
+		d5.roll();
+		hand4.add(d5.getValue());
+		// c3.setHand(hand4);
+
+		// resetting the bid
+		activeValue = 0;
+		activenumDice = 0;
+
 	}
-	/**
-	 * used in the isMoveLegal function
-	 * @param row row value being checked
-	 * @param column column value being checked
-	 * @return A boolean declaring whether place on board has neighbors
-	 */
-boolean checkNeighbors(final int row, final int column) {
-		
-		int tilecount = 0;
-		
-		//check center pieces
-		//assertTrue(row != 7);
-		//assertTrue(row != 0);
-		//assertTrue(column != 7);
-		//assertTrue(column != 0);
-		if (row != 7 && row != 0 && column != 7 && column != 0) {
-			
-			//check right
-			//assertTrue(board[row + 1][column] != 0);
-			if (board[row + 1][column] != 0) {
-				
-				tilecount += 1;
-			}
-			//check top
-			if (board[row][column - 1] != 0) {
-				
-				tilecount += 1;	
-			}
-			//check left
-			if (board[row - 1][column] != 0) {
-				
-				tilecount += 1;
-			}
-			//check bottom
-			if (board[row][column + 1] != 0) {
-				
-				tilecount += 1;	
+
+	public void resetBid() {
+		activeValue = 0;
+		activenumDice = 0;
+	}
+
+	public void newBid(int newValue, int numDice) {
+		// Scanner s = new Scanner(System.in); these need to be in the GUI
+		// int numDice = s.nextInt();
+		// int value = s.nextInt();
+		int temp1 = activeValue;
+		while (activeValue == temp1) {
+			if ((newValue > activeValue || numDice > activenumDice) && newValue < 7) {
+				temp1++;
+				activeValue = newValue;
+				activenumDice = numDice;
+				System.out.println(
+						"The current bid: \n There are " + activenumDice + " Dice with the value " + activeValue);
+			} else {
+				System.out.println("The Dice value or Number of dice is invalid");
+				break;
 			}
 		}
-		
-		//check bottom
-		if (row == 7 && column != 0 && column != 7) {
-			
-			//check right
-			if (board[row][column + 1] != 0) {
-				
-				tilecount += 1;
+	}
+
+	public boolean bullShit(Player pl, Player pl2) {
+		System.out.println("I Call BULLSHIT");
+		ArrayList<Integer> allHands = new ArrayList<Integer>();
+		ArrayList<Integer> temp = new ArrayList<Integer>();
+		int count = 0;
+		temp = p1.getHand();
+		allHands.addAll(pl.getHand());
+		allHands.addAll(pl2.getHand());
+		// getting all dice values
+		// for(int i =0; i<temp.size(); i++)
+		// allHands.add(temp.get(i));
+		//
+		// temp = p2.getHand();
+		// for(int i =0; i<temp.size(); i++)
+		// allHands.add(temp.get(i));
+		//
+		// temp = p3.getHand();
+		// for(int i =0; i<temp.size(); i++)
+		// allHands.add(temp.get(i));
+		//
+		// temp = p4.getHand();
+		// for(int i =0; i<temp.size(); i++)
+		// allHands.add(temp.get(i));
+		System.out.println(allHands);
+		for (Integer i : allHands) {
+			if (i == activeValue) {
+				count++;
 			}
-			//check left
-			if (board[row - 1][column] != 0) {
-				
-				tilecount += 1;
-			}
-			//check top
-			if (board[row][column - 1] != 0) {
-				
-				tilecount += 1;	
-			}
-			
+
 		}
-		
-		//check top
-		if (row == 0 && column != 0 && column != 7) {
-			
-			//check right
-			if (board[row + 1][column] != 0) {
-				
-				tilecount += 1;
-			}
-			//check bottom
-			if (board[row][column + 1] != 0) {
-				
-				tilecount += 1;	
-			}
-			//check left
-			if (board[row][column - 1] != 0) {
-				
-				tilecount += 1;
-			}
-		}
-		
-		//check left
-		if (column == 0 && row != 0 && row != 7) {
-			
-			//check right
-			if (board[row][column + 1] != 0) {
-				
-				tilecount += 1;
-			}
-			//check top
-			if (board[row - 1][column] != 0) {
-				
-				tilecount += 1;	
-			}
-			//check bottom
-			if (board[row + 1][column] != 0) {
-				
-				tilecount += 1;	
-			
-		}
-		}
-			
-		//check right
-		if (column == 7 && row != 0 && row != 7) {
-			
-			//check top
-			if (board[row - 1][column] != 0) {
-				
-				tilecount += 1;	
-			}
-			//check left
-			if (board[row][column - 1] != 0) {
-				
-				tilecount += 1;
-			}
-			//check bottom
-			if (board[row + 1][column] != 0) {
-				
-				tilecount += 1;	
-			}
-			
-		}
-		
-		//check top left
-		if (column == 0 && row == 0) {
-			
-			//check bottom
-			if (board[row + 1][column] != 0) {
-				
-				tilecount += 1;	
-			}
-			//check right
-			if (board[row][column + 1] != 0) {
-				
-				tilecount += 1;
-			}
-			
-		}
-		
-		//check top right
-		if (column == 7 && row == 0) {
-			
-			//check left
-			if (board[row][column - 1] != 0) {
-				
-				tilecount += 1;
-			}
-			//check bottom
-			if (board[row + 1][column] != 0) {
-				
-				tilecount += 1;	
-			}
-			
-		}
-		
-		//check bootom left
-		if (column == 0 && row == 7) {
-			
-			//check right
-			if (board[row][column + 1] != 0) {
-				
-				tilecount += 1;
-			}
-			//check top
-			if (board[row - 1][column] != 0) {
-				
-				tilecount += 1;	
-			}
-		}
-		
-		//check bottom right
-		if (column == 7 && row == 7) {
-			
-			//check top
-			if (board[row - 1][column] != 0) {
-				
-				tilecount += 1;	
-			}
-			//check left
-			if (board[row][column - 1] != 0) {
-				
-				tilecount += 1;
-			}
-			
-			
-		}	
-			
-		
-		
-		if (tilecount > 0) {
-			
+
+		if (count >= activenumDice) {
+			pl2.loseDice();
+			activeValue = 0;
+			activenumDice = 0;
 			return true;
+		} else {
+			pl.loseDice();
+			activeValue = 0;
+			activenumDice = 0;
+			return false;
 		}
-		
-		return false;
-		
-	}	
-/**
- * 
- * @param row row on gameboard where piece will be placed
- * @param column column on on gameboard where 
- * @return updated gameboard, with newly placed piece and flipped pieces
- */
-	public int[][] placeTile(final int row, final int column) {
-		
-		int[][] tempBoard = new int[8][8];
-		tempBoard = board; 
-		System.out.println(Arrays.deepToString(tempBoard).replace("], ", "]\n"));
-		board[row][column] = turn; 
-		int oppositeTurn = (turn == 1) ? 2 : 1;
-		System.out.println();
-		int tempColumn = column;
-		int tempRow = row; 
-		//check left
-	       OUTER: for (int i = column; i > 0; i--) { 
-	           if (board[row][i - 1] == turn) {
-	               for (int j = i - 1; j < column; j++) {
-	                   tempBoard[row][j] = turn;
-	               }
-	               if (board[row][i] == 0) {
-		               break OUTER;
-		           }
-	                break;
-	           }
-	           
-	           if (board[row][i - 1] == 0) {
-	               break;
-	           }
-	       }
-	    //check right
-		OUTER: for (int i = column; i < 7; i++) {
-			if (board[row][i + 1] == turn) {
-				for (int j = i + 1; j > column; j--) {
-					tempBoard[row][j] = turn; 
-				}
-				if (board[row][i + 1] == 0) {
-					break;
-				}
-				break; 
-			}
-		}
-		//check up
-	       OUTER: for (int i = row; i > 0; i--) { 
-	           if (board[i - 1][column] == turn) {
-	               for (int j = i - 1; j < row; j++) {
-	                   tempBoard[j][column] = turn;
-	               }
-	               if (board[i - 1][column] == 0) {
-		               break OUTER;
-		           }
-	                break;
-	           }
-	           
-	           if (board[i][column] == 0) {
-	               break;
-	           }
-	       }
-		//check down
-		OUTER: for (int i = row; i < 7; i++) {
-			if (board[ i + 1][column] == turn) {
-				for (int j = i + 1; j > row; j--) {
-					tempBoard[j][column] = turn; 
-				}
-				if (board[i][column] == 0) {
-					break OUTER;
-				}
-				break; 
-			}
-		}
-		//check diagonal up left
-	    for (int i = column; i > 0; i--) {
-	    	for (int j = row; j > 0; j--) {
-	    		if (board[j - 1][i - 1] == turn) {
-	    			tempBoard[j][i] = turn;
-	    		}
-	    	}
-	    }
-		//check diagonal down left
-	    for (int i = column; i > 0; i--) {
-	    	for (int j = row; j < 7; j++) {
-	    		if (board[j + 1][i - 1] == turn) {
-	    			tempBoard[j][i] = turn; 
-	    		}
-	    	}
-	    }
-		//check diagonal up right
-	    for (int i = column; i < 7; i++) {
-	    	for (int j = row; j < 7; j++) {
-	    		if (board[j + 1][i + 1] == turn) {
-	    			tempBoard[j][i] = turn; 
-	    		}
-	    	}
-	    }
-		//check diagonal down right
-	    for (int i = column; i < 7; i++) {
-	    	for (int j = row; j > 0; j--) {
-	    		if (board[j - 1][i + 1] == turn) {
-	    			tempBoard[j][i] = turn; 
-	    		}
-	    	}
-	    }
-		if (turn == 1) {
-			turn = 2;
-		}
-		else {
-			turn = 1; 
-		} //changes turn
-		return tempBoard;
+
 	}
-	/**
-	 * used at end of game to declare winner
-	 * @return int value that shows winner
-	 */
-	public int declareWinner() {
-		int blackPieces = 0;
-		int whitePieces = 0; 
-		for (int i = 0; i < 7; i++) {			
-			for (int j = 0; j < 7; j++) {
-				if (board[i][j] == 1) {
-					blackPieces++;
-				}
-				else if (board[i][j] == 2) {
-					whitePieces++; 
+
+	public void compTurn(Player cpu) {
+		ArrayList<Integer> hand = new ArrayList<Integer>();
+		hand = cpu.getHand();
+		int count = 0;
+		int countHigher = 0;
+		System.out.println("CPU Turn");
+		// Check for any dice that matches the active value
+		for (int i = 0; i < hand.size(); i++) {
+			if (activeValue == hand.get(i)) {
+				count++;
+			}
+		}
+		// if the computer has the same amount of dice or more than the active
+		// value then place a new bid
+		if (count >= activenumDice) {
+			newBid(activeValue, count + 1);
+			System.out.println("CPU has bid " + activeValue + " " + activenumDice);
+			return;
+		}
+		for (int i = 0; i < hand.size(); i++) {
+			// check how many values are exactly one under the bid
+			if (hand.get(i) == activeValue - 1) {
+				count++;
+			}
+			// check how many values are exactly one over the bid
+			if (hand.get(i) == activeValue + 1) {
+				countHigher++;
+			}
+		}
+		if (count > countHigher) {
+			if (count >= activenumDice - 1) {
+				newBid(activeValue - 1, activenumDice - 1);
+				return;
+			}
+		}
+		if (count < countHigher) {
+			if (countHigher >= activenumDice - 1) {
+				if (activeValue < 6) {
+					newBid(activeValue + 1, activenumDice - 1);
+					return;
 				}
 			}
 		}
-		if (blackPieces > whitePieces) {
-			return 1; 
-		}
-		else if (blackPieces < whitePieces) {
-			return 2; 
-		}
-		else {
-			return 3; 
-		}
+		bullShit(cpu, p1);
 	}
-	/**
-	 * shows who's turn it is
-	 * @return integer representing player
-	 */
-	public int getTurn() {
-		return turn; 
-	}
-	/**
-	 * calculates score based on pieces on the board
-	 * @param color declares which color pieces you want the score of
-	 * @return score of player color passed through
-	 */
-	public int getScore(final int color) {
-		int score = 0; 
-		for (int i = 0; i < 7; i++) {			
-			for (int j = 0; j < 7; j++) {
-				if (board[i][j] == color) {
-					score++;
-				}
-			}
-		}
-		return score; 
-	}
+
 }

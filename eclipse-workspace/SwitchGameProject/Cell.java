@@ -1,143 +1,174 @@
+package gameSet; 
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-/*************************************
- * Cell class for the Minesweeper game
- ************************************/
-public class Cell implements ActionListener{
+/***********************************************************************
+ * Cell class for the Minesweeper game. Each Cell is placed on the board
+ * with a value, if the value is -1 then it is a bomb and the game ends.
+ * Otherwise, the cell contains a number representing the number of 
+ * bombs around it.
+ * 
+ * Credit goes to h.j.k. for the tutorial on 
+ * https://codereview.stackexchange.com/questions/88636/beginner-
+ * 			minesweeper-game
+ * 
+ * @author Cody Chinn
+ * @version 1.2
+ **********************************************************************/
+public class Cell {
+	/** The button to make the cell operate.*/
     private JButton b;
+    /** The board for the minesweeper game.*/
     private Board board;
+    /** Number of bombs around a given cell.*/
     private int val;
-    private int id;
-    private boolean notChecked;
+    /** Determine whether or not the cell has been clicked on.*/
+    private boolean checked;
 
-    /***********************************************
-     * Constructor for Cell class
+    /*************************************************
+     * Constructor for Cell class.
      * 
      * @param board - the board to place the cell on
-     **********************************************/
-    public Cell(Board board){
+     ************************************************/
+    public Cell(Board board) {
+    	this.board = board;
         b = new JButton();
-        b.addActionListener(this);
-        b.setPreferredSize(new Dimension(50,50));
-        b.setMargin(new Insets(0,0,0,0));
-        this.board = board;
-        notChecked = true;
+        b.addActionListener(listener -> {
+        	this.checkCell(); 
+        	}
+        );
+        b.setPreferredSize(new Dimension(50, 50));
+        b.setMargin(new Insets(0, 0, 0, 0));
+        checked = false;
     }
     
-    /*****************************************
-     * Getter for the button instance variable
-     *****************************************/
+    /***************************************************
+     * Getter for the button instance variable.
+     * 
+     * @return JButton - The button on the on the board
+     **************************************************/
     public JButton getButton() {
         return b;
     }
 
-    /************************************
-     *  Getter for the value of the cell
-     ************************************/
+    /***************************************
+     *  Getter for the value of the cell.
+     *  
+     *  @return int - The value of the cell
+     ***************************************/
     public int getValue() {
         return val;
     }
 
-    /********************************
-     *  Getter for the ID of the cell
-     *******************************/
-    public int getId() {
-        return id;
-    }
-
-    /********************************
-     *  Setter for the ID of the cell
-     *******************************/
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /************************************
-     * Setter for the value of the cell
-     ***********************************/
-    public void setValue(int val) {
+    /**************************************
+     * Setter for the value of the cell.
+     * 
+     * @param val - The value of the cell
+     *************************************/
+    public void setValue(final int val) {
         this.val = val;
-    }
-
-    /****************************************************************
-     * Displays the number of mines next to the Cell, or the current
-     *  number in that cell
-     ***************************************************************/
-    public void displayValue(){
-        if(val==-1){
-        	// Bomb Cells are red
-            b.setText("\u2600");
-            b.setForeground(Color.BLACK);
-            b.setBackground(Color.RED);
-        }else if(val == 1){
-        	// Cells with a value of 1 are green
-            b.setText(String.valueOf(val));
-            b.setForeground(Color.BLACK);
-            b.setBackground(Color.GREEN);
-        }else if(val == 2) {
-        	// Cells with a value of 2 are yellow
-        	b.setText(String.valueOf(val));
-        	b.setForeground(Color.BLACK);
-            b.setBackground(Color.YELLOW);
-        }else if(val >= 3) {
-        	// Cells with a value of 3 or above are orange
-        	b.setText(String.valueOf(val));
-        	b.setForeground(Color.BLACK);
-            b.setBackground(Color.ORANGE);
-        }
-        // All other cells are empty and without fill
     }
 
     /***************************************************************
      * Disables the button when you click on it, then determines if 
-     * the value causes a loss
+     * the value causes a loss.
+     * 
      **************************************************************/
-    public void checkCell(){
-        b.setEnabled(false);
-        displayValue();
-        notChecked = false;
-        if(val == 0) 
-        	board.scanForEmptyCells();
-        
-        if(val == -1) 
-        	board.fail();
+    public void checkCell() {
+    	reveal(null);
+        if (isBomb() || board.isDone()) {
+            board.reveal(isBomb() ? Color.RED : Color.GREEN);
+        } else if (val == 0) {
+            board.scanForEmptyCells();
+        }
     }
-
-    /***************************************************
-     * Add to the value of a cell with a mine next to it
-     ***************************************************/
-    public void incrementValue(){
+    
+    /****************************************************************
+     * If the cells value is -1, then it's a bomb.
+     * 
+     * @return boolean - True if the cell is a bomb
+     ***************************************************************/
+    public boolean isBomb() {
+    	return val == -1;
+    }
+    
+    /****************************************************************
+     * Determine the value of the checked instance variable.
+     * 
+     * @return boolean - True if the cell has already been checked
+     ***************************************************************/
+    public boolean isChecked() {
+    	return checked;
+    }
+    
+    /****************************************************************
+     * If the cells value is -1, then it's a bomb.
+     * 
+     * @return boolean - True if the cell is a bomb
+     ***************************************************************/
+    public boolean isEmpty() {
+    	return !isChecked() && val == 0;
+    }
+    
+    /****************************************************************
+     * Set the cells value to -1 making it a bomb.
+     * 
+     * @return int - 0 if the bomb was placed, 1 if it was not
+     ***************************************************************/
+    public int setBomb() {
+    	/** Make sure it's not already a bomb*/
+    	if (!isBomb()) {
+    		setValue(-1);
+    		return 0;
+    	}
+    	return 1;
+    }
+    
+    /****************************************************************
+     * Displays the color of the cell, disables the button, and sets
+     * the cell to checked.
+     * 
+     * @param color - the colors of the cells being revealed
+     ***************************************************************/
+    public void reveal(Color color) {
+    	displayValue(color);
+    	checked = true;
+    	b.setEnabled(!checked);
+    }
+    
+    /****************************************************************
+     * Displays the value of the cell "under" the button.
+     * 
+     * @param color - The color the text in the cell
+     ***************************************************************/
+    public void displayValue(Color color) {
+    	if (isBomb()) {
+    		b.setText("\u2600");
+    		b.setBackground(color);   		
+    	} else if (val != 0) {
+    		b.setText(String.valueOf(val));
+    	}
+    }
+    
+    /****************************************************
+     * Add to the value of a cell with a mine next to it.
+     * 
+     ****************************************************/
+    public void incrementValue() {
         val++;
     }
 
-    /*************************************
-     *  Sees if the cell has been checked 
-     ***********************************/
-    public boolean isNotChecked(){
-        return notChecked;
-    }
-
-    /*****************************************
-     * Check to see if the cell has no value
-     ****************************************/
-    public boolean isEmpty(){
-        return isNotChecked() && val==0;
-    }
-
-    /***************************************
-     * Display the number 'under' the button
-     **************************************/
-    public void reveal(){
-        displayValue();
-        b.setEnabled(false);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        checkCell();
-    }
-
+    /***************************************************
+     * Reset the value, background color, and text of a
+     * cell.
+     *
+     ***************************************************/
+	public void reset() {
+		setValue(0);
+		b.setText("");
+		b.setBackground(null);
+		checked = false;
+		b.setEnabled(!checked);
+	}
 }
