@@ -16,15 +16,35 @@ public class Player {
 	Dice d5 = new Dice();
 	
 	boolean playerTurn ; 
+	/*This method is used to return if its the users turn or not
+	 * 
+	 * 
+	 * @return boolean value
+	 */
 	public boolean getTurn(){
 		return playerTurn;
 	}
+	/*This method is used to set the players turn
+	 * no return values.
+	 * 
+	 * 
+	 */
 	public void setPlayerTurn(boolean b){
 		playerTurn = b;
 	}
+	/*This method is used to return the number of dice the player has left
+	 * 
+	 * 
+	 * @ returns integer 0-5
+	 */
 	public int getNumDice(){
 		return numDice;
 	}
+	/*This method is used to set the number of dice the player has.
+	 * 
+	 * 
+	 * 
+	 */
 	public void setNumDice(int numdie){
 		numDice = numdie;
 	}
@@ -41,9 +61,19 @@ public class Player {
 		hand.add(d4.getValue());
 		hand.add(d5.getValue());
 	}
+	/*This method is used to return the value of specific Die
+	 * 
+	 * 
+	 * @return die value 1-6
+	 */
 	public int getdieValue(){
 		return dieValue;
 	}
+	/*This method is used to return number of dice player has left.
+	 * 
+	 * @returns number ofdicee 0-5
+	 * 
+	 */
 	public int getnumDice(){
 		return numDice;
 	}
@@ -101,13 +131,27 @@ public class Player {
 		}
 		}
 		
-	
+	/*This method is used to return all dice values in players hand
+	 * 
+	 * @ return ArrayList<Integer>
+	 * 
+	 */
 	public ArrayList<Integer> getHand(){
 		return hand;
-	}
+	}/*This method is used to set the player hand from rolling dice in the GUI
+	 * 
+	 * 
+	 * 
+	 */
+	
 	public void setHand(ArrayList<Integer> newHand){
 		hand = newHand;
 	}
+	/*This method is used to return the number of items in the players hand
+	 * 
+	 * @return integer
+	 * 
+	 */
 	public int getHandSize(){
 		return hand.size();
 	}
