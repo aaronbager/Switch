@@ -15,6 +15,7 @@ public class LiarGUI extends JFrame implements ActionListener {
 	Dice d5 = new Dice();
 	ArrayList<Dice> dieList = new ArrayList<Dice>();
 	ArrayList<Dice> OppenentdieList = new ArrayList<Dice>();
+	//temp variable to signify the start of the first round
 	int start = 0;
 	int activeValue, activeNumDice, p1handSize;
 	/** buttons and labels */
@@ -49,11 +50,12 @@ public class LiarGUI extends JFrame implements ActionListener {
 			System.exit(1);
 		}
 
-		// start a new game
+		// call bullshit on the previous players bid
 		if (buttonPressed == Bull) {
 			game.bullShit(p, c1);// this is where the AI needs to be added
 			newRound.setEnabled(true);
 		}
+		// start a new game
 		if (buttonPressed == newRound) {
 			game.resetBid();
 			ArrayList<Integer> hand = new ArrayList<Integer>();
@@ -61,7 +63,7 @@ public class LiarGUI extends JFrame implements ActionListener {
 			newRound.setEnabled(false);
 			hand.clear();
 			chand.clear();
-			// Setting the computers hand
+			// Setting the computers hand and players hand  
 			if (start == 0) {
 				d1.roll();
 				chand.add(d1.getValue());
@@ -218,7 +220,11 @@ public class LiarGUI extends JFrame implements ActionListener {
 			game.compTurn(c1);
 		}
 	}
-
+	/*This method is used to setups the menus on the UI
+	 * 
+	 * 
+	 * 
+	 */
 	private void setupMenus() {
 		fileMenu = new JMenu("File");
 		quitItem = new JMenuItem("Quit");
