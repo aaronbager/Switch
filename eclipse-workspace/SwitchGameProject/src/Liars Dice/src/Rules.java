@@ -70,12 +70,20 @@ public class Rules {
 		activenumDice = 0;
 
 	}
-
+	/*This method is used to reset the active values= and number of dice in the current bid
+	 * this is used before the start of a new round.
+	 * 
+	 * 
+	 */
 	public void resetBid() {
 		activeValue = 0;
 		activenumDice = 0;
 	}
-
+	/*This method is used to update the active bid by the players. Insures their bids are legal.
+	 * 
+	 * 
+	 * 
+	 */
 	public void newBid(int newValue, int numDice) {
 		// Scanner s = new Scanner(System.in); these need to be in the GUI
 		// int numDice = s.nextInt();
@@ -94,7 +102,11 @@ public class Rules {
 			}
 		}
 	}
-
+	/*This method is used to callout the player who cast the last bid.
+	 * 
+	 * 
+	 * @return true or false boolean value
+	 */
 	public boolean bullShit(Player pl, Player pl2) {
 		System.out.println("I Call BULLSHIT");
 		ArrayList<Integer> allHands = new ArrayList<Integer>();
@@ -139,7 +151,11 @@ public class Rules {
 		}
 
 	}
-
+	/*This method is used by the AI to makea logical decision based on whats in his hand
+	 * 
+	 * 
+	 * 
+	 */
 	public void compTurn(Player cpu) {
 		ArrayList<Integer> hand = new ArrayList<Integer>();
 		hand = cpu.getHand();
