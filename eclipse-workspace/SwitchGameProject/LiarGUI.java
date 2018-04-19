@@ -1,57 +1,91 @@
-package gameSet;
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+package gameset;
 
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+/**
+ * 
+ * @author Joshua Stuart
+ * @version 2.0
+ * Runs the GUI part of Liars Dice
+ */
 public class LiarGUI extends JFrame implements ActionListener {
 
-	/** visual representation of the dice */
-	Dice d1 = new Dice();
-	Dice d2 = new Dice();
-	Dice d3 = new Dice();
-	Dice d4 = new Dice();
-	Dice d5 = new Dice();
-	ArrayList<Dice> dieList = new ArrayList<Dice>();
-	ArrayList<Dice> OppenentdieList = new ArrayList<Dice>();
-	int start = 0;
-	int activeValue, activeNumDice, p1handSize;
-	/** buttons and labels */
-	JButton newRound, Bull, Bid;
-	JLabel round, player, computer;
-	Rules game;
-	Player p = new Player();
-	Player c1 = new Player();
-	// Player c2 = new Player();
-	// Player c3 = new Player();
-	/** menu items */
-	JMenuBar menus;
-	JMenu fileMenu;
-	JMenuItem quitItem;
-	JMenuItem playItem;
-	JMenuItem restartItem;
-
-	public void actionPerformed(ActionEvent e) {
+	/** visual representation of the dice. */
+	private Dice d1 = new Dice();
+	/** visual representation of the dice. */
+	private Dice d2 = new Dice();
+	/** visual representation of the dice. */
+	private Dice d3 = new Dice();
+	/** visual representation of the dice. */
+	private Dice d4 = new Dice();
+	/** visual representation of the dice. */
+	private Dice d5 = new Dice();
+	/** ArrayList holding dice objects. */
+	private ArrayList<Dice> dieList = new ArrayList<Dice>();
+	/** ArrayList holding opponents dice objects. */
+	private ArrayList<Dice> opponentDieList = new ArrayList<Dice>();
+	/** Variable that indicates whether the game has started or not. */
+	private int start = 0;
+	/** active number of dice. */
+	private int activeValue, activeNumDice, p1handSize;
+	/** Button to allow user to interact with game. */
+	private JButton newRound, bull, bid;
+	/** Label displaying important information about game. */
+	private JLabel round, player, computer;
+	/** Class that handles the logic of the game. */
+	private Rules game;
+	/** Player class. */
+	private Player p = new Player();
+	/** Player class. */
+	private Player c1 = new Player();
+	/** menu items. */
+	private JMenuBar menus;
+	/** JMenu to hold menu items. */
+	private JMenu fileMenu;
+	/** menu item that lets player quit. */
+	private JMenuItem quitItem;
+	/** play menu item. */
+	private JMenuItem playItem;
+	/** Menu item that lets player restart game. */
+	private JMenuItem restartItem;
+	/**
+	 * Class to run buttons.
+	 * @param e ActionEvent variable
+	 */
+	public void actionPerformed(
+			ActionEvent e) {
 		JComponent buttonPressed = (JComponent) e.getSource();
 		dieList.add(d1);
 		dieList.add(d2);
 		dieList.add(d3);
 		dieList.add(d4);
 		dieList.add(d5);
-		OppenentdieList.add(d1);
-		OppenentdieList.add(d2);
-		OppenentdieList.add(d3);
-		OppenentdieList.add(d4);
-		OppenentdieList.add(d5);
+		opponentDieList.add(d1);
+		opponentDieList.add(d2);
+		opponentDieList.add(d3);
+		opponentDieList.add(d4);
+		opponentDieList.add(d5);
 		// quit the game
 		if (buttonPressed == quitItem) {
 			System.exit(1);
 		}
 
 		// start a new game
-		if (buttonPressed == Bull) {
-			game.bullShit(p, c1);// this is where the AI needs to be added
+		if (buttonPressed == bull) {
+			game.bullShit(p, c1);
+			// this is where the AI needs to be added
 			newRound.setEnabled(true);
 		}
 		if (buttonPressed == newRound) {
@@ -86,7 +120,8 @@ public class LiarGUI extends JFrame implements ActionListener {
 				d5.roll();
 				hand.add(d5.getValue());
 				p.setHand(hand);
-				System.out.println("Your hand contains " + hand);
+				System.out.println("Your hand contains " 
+				+ hand);
 				start++;
 			}
 			if (start == 2) {
@@ -152,6 +187,8 @@ public class LiarGUI extends JFrame implements ActionListener {
 					d5.roll();
 					hand.add(d5.getValue());
 					break;
+				default:
+					break;
 				}
 				switch (c1.getHandSize()) {
 				case 1:
@@ -194,11 +231,15 @@ public class LiarGUI extends JFrame implements ActionListener {
 					d5.roll();
 					chand.add(d5.getValue());
 					break;
+				default:
+					break;
 				}
 			}
 			start = 2;
-			String inputValue = JOptionPane.showInputDialog("Please enter the number of pips");
-			String numdie = JOptionPane.showInputDialog("Please enter the number of dice");
+			String inputValue = JOptionPane.showInputDialog(
+					"Please enter the number of pips");
+			String numdie = JOptionPane.showInputDialog(
+					"Please enter the number of dice");
 			int numDice = Integer.parseInt(numdie);
 			int value = Integer.parseInt(inputValue);
 			activeValue = value;
@@ -207,9 +248,11 @@ public class LiarGUI extends JFrame implements ActionListener {
 			game.compTurn(c1);
 			newRound.setEnabled(true);
 		}
-		if (buttonPressed == Bid) {
-			String inputValue = JOptionPane.showInputDialog("Please enter the number of pips");
-			String numdie = JOptionPane.showInputDialog("Please enter the number of dice");
+		if (buttonPressed == bid) {
+			String inputValue = JOptionPane.showInputDialog(
+					"Please enter the number of pips");
+			String numdie = JOptionPane.showInputDialog(
+					"Please enter the number of dice");
 			int numDice = Integer.parseInt(numdie);
 			int value = Integer.parseInt(inputValue);
 			activeValue = value;
@@ -218,7 +261,9 @@ public class LiarGUI extends JFrame implements ActionListener {
 			game.compTurn(c1);
 		}
 	}
-
+/**
+ * Sets up Menus for GUI.
+ */
 	private void setupMenus() {
 		fileMenu = new JMenu("File");
 		quitItem = new JMenuItem("Quit");
@@ -237,7 +282,7 @@ public class LiarGUI extends JFrame implements ActionListener {
 
 
 	/****************************************************************
-	 * GUI constructor
+	 * GUI constructor.
 	 ****************************************************************/
 	public LiarGUI() {
 		// create the game object as well as the GUI Frame
@@ -256,13 +301,13 @@ public class LiarGUI extends JFrame implements ActionListener {
 
 		// create the buttons
 		newRound = new JButton("New Round");
-		Bull = new JButton("Bull");
-		Bid = new JButton("Bid");
+		bull = new JButton("bull");
+		bid = new JButton("bid");
 
 		// FIX ME: register the listeners for the three buttons
 		newRound.addActionListener(this);
-		Bull.addActionListener(this);
-		Bid.addActionListener(this);
+		bull.addActionListener(this);
+		bid.addActionListener(this);
 
 		// place both dice in the middle row
 		d1 = p.getDice(1);
@@ -313,12 +358,12 @@ public class LiarGUI extends JFrame implements ActionListener {
 		add(newRound, panelPosition);
 		panelPosition.gridx = 1;
 		panelPosition.gridy = 2;
-		add(Bull, panelPosition);
+		add(bull, panelPosition);
 
 		// FIX ME: place computer button below second die
 		panelPosition.gridx = 2;
 		panelPosition.gridy = 2;
-		add(Bid, panelPosition);
+		add(bid, panelPosition);
 
 		// set up file menus
 		setupMenus();

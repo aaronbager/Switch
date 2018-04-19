@@ -1,20 +1,37 @@
-package gameSet;
+package gameset;
 import java.util.ArrayList;
-import java.util.Scanner;
 
+/**
+ * 
+ * @author Joshua Stuart
+ * @version 2.0
+ */
 public class Rules {
-	Player p1 = new Player();
-	Player p2 = new Player();
-	Player p3 = new Player();
-	Player p4 = new Player();
-	Dice d1 = new Dice();
-	Dice d2 = new Dice();
-	Dice d3 = new Dice();
-	Dice d4 = new Dice();
-	Dice d5 = new Dice();
-	int activeValue = 0;
-	int activenumDice = 0;
-
+	/** Player class. */
+	private Player p1 = new Player();
+	/** Player class. */
+	private Player p2 = new Player();
+	/** Player class. */
+	private Player p3 = new Player();
+	/** Player class. */
+	private Player p4 = new Player();
+	/** Holds dice class. */
+	private Dice d1 = new Dice();
+	/** Holds dice class. */
+	private Dice d2 = new Dice();
+	/** Holds dice class. */
+	private Dice d3 = new Dice();
+	/** Holds dice class. */
+	private Dice d4 = new Dice();
+	/** Holds dice class. */
+	private Dice d5 = new Dice();
+	/** .*/
+	private int activeValue = 0;
+	/** Number of active dice. */
+	private int activenumDice = 0;
+/**
+ * Constructor, empty.
+ */
 	public Rules() {
 
 	}
@@ -22,7 +39,7 @@ public class Rules {
 	/**
 	 * This method is invoked at the start 
 	 * of each round to change the hands of
-	 * all players
+	 * all players.
 	 * 
 	 */
 	public void newRound() {
@@ -72,32 +89,51 @@ public class Rules {
 		activenumDice = 0;
 
 	}
-
+	/**This method is used to reset the active values 
+	 * and number of dice in the current bid.
+	 * this is used before the start of a new round.
+	 * 
+	 * 
+	 */
 	public void resetBid() {
 		activeValue = 0;
 		activenumDice = 0;
 	}
-
-	public void newBid(int newValue, int numDice) {
-		// Scanner s = new Scanner(System.in); these need to be in the GUI
-		// int numDice = s.nextInt();
-		// int value = s.nextInt();
+	/** This method is used to update the active bid 
+	 * by the players. 
+	 * Insures their bids are legal.
+	 * @param newValue new value for bid
+	 * @param numDice number of dice
+	 */
+	public void newBid(final int newValue, final int numDice) {
 		int temp1 = activeValue;
 		while (activeValue == temp1) {
-			if ((newValue > activeValue || numDice > activenumDice) && newValue < 7) {
+			if ((newValue > activeValue 
+					|| numDice > activenumDice) 
+					&& newValue < 7) {
 				temp1++;
 				activeValue = newValue;
 				activenumDice = numDice;
 				System.out.println(
-						"The current bid: \n There are " + activenumDice + " Dice with the value " + activeValue);
+				"The current bid: \n There are " 
+				+ activenumDice 
+				+ " Dice with the value " 
+				+ activeValue);
 			} else {
-				System.out.println("The Dice value or Number of dice is invalid");
+				System.out.println(
+						"The Dice value "
+						+ "or Number of "
+						+ "dice is invalid");
 				break;
 			}
 		}
 	}
-
-	public boolean bullShit(Player pl, Player pl2) {
+	/**This method is used to callout the player who cast the last bid.
+	 * @param pl The last player
+	 * @param pl2 The other player
+	 * @return true or false boolean value
+	 */
+	public boolean bullShit(final Player pl, final Player pl2) {
 		System.out.println("I Call BULLSHIT");
 		ArrayList<Integer> allHands = new ArrayList<Integer>();
 		ArrayList<Integer> temp = new ArrayList<Integer>();
@@ -105,21 +141,6 @@ public class Rules {
 		temp = p1.getHand();
 		allHands.addAll(pl.getHand());
 		allHands.addAll(pl2.getHand());
-		// getting all dice values
-		// for(int i =0; i<temp.size(); i++)
-		// allHands.add(temp.get(i));
-		//
-		// temp = p2.getHand();
-		// for(int i =0; i<temp.size(); i++)
-		// allHands.add(temp.get(i));
-		//
-		// temp = p3.getHand();
-		// for(int i =0; i<temp.size(); i++)
-		// allHands.add(temp.get(i));
-		//
-		// temp = p4.getHand();
-		// for(int i =0; i<temp.size(); i++)
-		// allHands.add(temp.get(i));
 		System.out.println(allHands);
 		for (Integer i : allHands) {
 			if (i == activeValue) {
@@ -141,8 +162,11 @@ public class Rules {
 		}
 
 	}
-
-	public void compTurn(Player cpu) {
+	/**
+	 * Handles computers turn.
+	 * @param cpu player class holding computer
+	 */
+	public void compTurn(final Player cpu) {
 		ArrayList<Integer> hand = new ArrayList<Integer>();
 		hand = cpu.getHand();
 		int count = 0;
@@ -154,11 +178,13 @@ public class Rules {
 				count++;
 			}
 		}
-		// if the computer has the same amount of dice or more than the active
+		// if the computer has the same 
+		// amount of dice or more than the active
 		// value then place a new bid
 		if (count >= activenumDice) {
 			newBid(activeValue, count + 1);
-			System.out.println("CPU has bid " + activeValue + " " + activenumDice);
+			System.out.println("CPU has bid " 
+			+ activeValue + " " + activenumDice);
 			return;
 		}
 		for (int i = 0; i < hand.size(); i++) {
@@ -180,7 +206,8 @@ public class Rules {
 		if (count < countHigher) {
 			if (countHigher >= activenumDice - 1) {
 				if (activeValue < 6) {
-					newBid(activeValue + 1, activenumDice - 1);
+					newBid(activeValue + 1, 
+					 activenumDice - 1);
 					return;
 				}
 			}

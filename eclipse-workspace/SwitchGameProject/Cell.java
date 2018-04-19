@@ -1,7 +1,10 @@
-package gameSet; 
+package gameset;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Insets;
+
+import javax.swing.JButton;
 
 /***********************************************************************
  * Cell class for the Minesweeper game. Each Cell is placed on the board
@@ -31,7 +34,7 @@ public class Cell {
      * 
      * @param board - the board to place the cell on
      ************************************************/
-    public Cell(Board board) {
+    public Cell(final Board board) {
     	this.board = board;
         b = new JButton();
         b.addActionListener(listener -> {
@@ -131,7 +134,7 @@ public class Cell {
      * 
      * @param color - the colors of the cells being revealed
      ***************************************************************/
-    public void reveal(Color color) {
+    public void reveal(final Color color) {
     	displayValue(color);
     	checked = true;
     	b.setEnabled(!checked);
@@ -142,7 +145,7 @@ public class Cell {
      * 
      * @param color - The color the text in the cell
      ***************************************************************/
-    public void displayValue(Color color) {
+    public void displayValue(final Color color) {
     	if (isBomb()) {
     		b.setText("\u2600");
     		b.setBackground(color);   		

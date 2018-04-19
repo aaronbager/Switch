@@ -1,4 +1,7 @@
-package gameSet;
+package gameset;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -7,12 +10,12 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane; 
 import javafx.scene.control.Button;
-import javafx.scene.control.Label; 
-import javax.swing.JFrame;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.scene.control.*; 
+import javafx.geometry.Insets; 
 /**
  * Used to hold the GUI when launching program.
  * @author Aaron Bager.
@@ -31,16 +34,14 @@ public class Launcher extends Application {
 		ObservableList<String> gameList =
 				FXCollections.observableArrayList(
 						"Othello",
-						"Checkers",
 						"Liars Dice",
 						"Battleship",
-						"Minesweeper",
-						"Connect Four");
-		ComboBox gameChoice = new ComboBox(gameList);
+						"Minesweeper");
+		ComboBox gc = new ComboBox(gameList);
 		GridPane grid = new GridPane(); 
 		grid.setPadding(new Insets(30, 30, 30, 30));
 		grid.add(gameLabel, 1, 1);
-		grid.add(gameChoice, 3, 1);
+		grid.add(gc, 3, 1);
 		grid.add(launchButton, 2, 5);
 		Scene scene = new Scene(grid);
 		primaryStage.setTitle(
@@ -50,21 +51,26 @@ public class Launcher extends Application {
 		primaryStage.show(); 
 		launchButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(final ActionEvent event) {
-				String choice = gameChoice.getSelectionModel().getSelectedItem().toString();
+				String choice; 
+				SingleSelectionModel t = gc.getSelectionModel();
+				choice = t.getSelectedItem().toString();
 				Stage secondaryStage = new Stage();
-				if (choice == "Othello") {
+				if (choice.equals("Othello")) {
 					OthelloMain othello = new OthelloMain();
 					othello.start(secondaryStage);
-				} else if (choice == "Minesweeper") {
-					Board board = new Board();
-				} else if (choice == "Liars Dice") {
+				} else if (choice.equals("Minesweeper")) {
+					SwingUtilities.invokeLater(() 
+					-> new Board().getBoard());
+				} else if (choice.equals("Liars Dice")) {
 					LiarGUI gui = new LiarGUI();
-					gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					gui.setDefaultCloseOperation(
+							JFrame.EXIT_ON_CLOSE);
 					gui.setTitle("Liars Dice");
 					gui.pack();
 					gui.setVisible(true);
-				} else if (choice == "Battleship") {
-					System.out.println("BATTLESHIP!");
+				} else if (choice.equals("Battleship")) {
+					BattleshipGUI b = new BattleshipGUI(); 
+					b.start(secondaryStage);
 				}
 			}
 		});

@@ -1,21 +1,26 @@
-package gameSet;
+package gameset;
 import java.util.Arrays;
 /**
  * Represents the rule set to play othello. Checks to see if move is legal, 
  * and will change pieces accordingly as game is played.
  * 
- * @author Aaron Bager, Jessica Ricksgers, Cody Chinn, Joshua Stuart
+ * @author Aaron Bager 
+ * @author Jessica Ricksgers
+ * @author Cody Chinn
+ * @author Joshua Stuart
  * @version 1.0
  * int[][] board Represents the othello gameboard
  * int turn Keeps track of the turn. 1 for black and 2 for white
  */
-
 public class OthelloRules {
-	/**
-	 * 
-	 */
+	/** represents the othello gameboard. 
+	 * 0 for empty 1 for black 2 for white*/
 	private int[][] board = new int[8][8];
-	private int turn; //1 for black, 2 for white
+	/**
+	 * integer keeps track of the turn. 
+	 * 1 for black 2 for white.
+	 */
+	private int turn; //1 for black, 2 for white.
 	/**
 	 * Used at the beggining to place initial pieces.
 	 * @return A gameboard with the initial pieces placed
@@ -60,7 +65,7 @@ public class OthelloRules {
 	 * @param column column value being checked
 	 * @return A boolean declaring whether place on board has neighbors
 	 */
-boolean checkNeighbors(
+	boolean checkNeighbors(
 		               final int row, 
 					   final int column) {
 		

@@ -1,9 +1,22 @@
-package gameSet;
-import java.util.*;
+package gameset;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+
+/*import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
+*/
 /*****************************************************************
 
  *****************************************************************/
@@ -30,13 +43,13 @@ public class Dice extends JPanel implements MouseListener, Comparable {
     private int middle;
 
     /** color of the dice when held. */
-    private Color HELD_COLOR = Color.pink;
+    private Color heldColor = Color.pink;
 
     /** default color of dice. */
-    private Color BACKGROUND = Color.white;
+    private Color background = Color.white;
 
     /** repeats for animation. */
-    private int NUM_ROLLS;
+    private int numRolls;
 
     /** Timer for animation. */
     private javax.swing.Timer myTimer;
@@ -56,7 +69,7 @@ public class Dice extends JPanel implements MouseListener, Comparable {
         left = spacer; 
         right = mySize - spacer - dotSize; 
         middle = (mySize - dotSize) / 2;
-        setBackground(BACKGROUND);
+        setBackground(background);
         setForeground(Color.black);
         setSize(size, size); 
         setPreferredSize(new Dimension(size, size));
@@ -107,9 +120,9 @@ public class Dice extends JPanel implements MouseListener, Comparable {
     public void setHeld(final boolean h) {
         held = h;
         if (held) {
-            setBackground(HELD_COLOR);
+            setBackground(heldColor);
         } else {
-            setBackground(BACKGROUND);
+            setBackground(background);
         }
         repaint();    
     }
@@ -118,7 +131,7 @@ public class Dice extends JPanel implements MouseListener, Comparable {
     Sets the frozen state.
     @param f true to freeze the die.
      *****************************************************************/
-    public void setFreeze(final boolean f){
+    public void setFreeze(final boolean f) {
         frozen = f;   
     }
 
@@ -166,9 +179,9 @@ public class Dice extends JPanel implements MouseListener, Comparable {
     @param num number of rolls before stopping
      *****************************************************************/
     public void setNumRolls(final int num) {
-        NUM_ROLLS = 0;
+        numRolls = 0;
         if (num > 0) {
-            NUM_ROLLS = num;
+            numRolls = num;
         }
     }
 
@@ -226,6 +239,8 @@ public class Dice extends JPanel implements MouseListener, Comparable {
             g.fillOval(right, middle, dotSize, dotSize); 
             g.fillOval(right, right, dotSize, dotSize); 
             break;
+		default:
+			break;
         }   
 
     }
@@ -241,22 +256,26 @@ public class Dice extends JPanel implements MouseListener, Comparable {
         }
         if (held) {
             held = false;
-            setBackground(BACKGROUND);
+            setBackground(background);
         } else {
             held = true;
-            setBackground(HELD_COLOR);
+            setBackground(heldColor);
         }
         repaint();
 
     }
-
-    public void mousePressed(MouseEvent e){}
-
-    public void mouseReleased(MouseEvent e){}
-
-    public void mouseExited(MouseEvent e){}
-
-    public void mouseEntered(MouseEvent e){}
+    /** Empty.
+     * @param e mouse event */
+    public void mousePressed(final MouseEvent e) { }
+    /** Empty.
+     * @param e mouse event */
+    public void mouseReleased(final MouseEvent e) { }
+    /** Empty.
+     * @param e mouse event */
+    public void mouseExited(final MouseEvent e) { }
+    /** Empty.
+     * @param e mouse event */
+    public void mouseEntered(final MouseEvent e) { }
 
     /*****************************************************************
     allows dice to be compared if necessary.
@@ -264,7 +283,7 @@ public class Dice extends JPanel implements MouseListener, Comparable {
     @param o compare the dice with this object
     @return -1 if dice is less than passed object
      *****************************************************************/
-    public int compareTo(Object o) {
+    public int compareTo(final Object o) {
         Dice d = (Dice) o;
         return getValue() - d.getValue();
     } 
@@ -273,13 +292,20 @@ public class Dice extends JPanel implements MouseListener, Comparable {
     INNER class to roll the dice as an animation.
      ******************************************************/
     private class Animator implements ActionListener {
-        int count = 0;
+        /**
+         * Counter.
+         */
+    	private int count = 0;
+    	/**
+    	 * actionListener for animation. 
+    	 * @param e ActionEvent 
+    	 */
         public void actionPerformed(ActionEvent e) {
             displayValue = (int) (Math.random() * 6) + 1; 
             repaint();
             count++;
             // Should we stop rolling?
-            if (count == NUM_ROLLS) {
+            if (count == numRolls) {
                 count = 0;
                 myTimer.stop();
                 displayValue = myValue;

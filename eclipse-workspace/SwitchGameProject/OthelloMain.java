@@ -1,35 +1,61 @@
-package gameSet;
-/**
- * class that houses the main function
- * @author Aaron Bager, Jessica Ricksgers, Cody Chinn, Joshua Stuart
- */
+package gameset;
+
 
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane; 
-import javafx.scene.control.Button;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label; 
-import java.util.Arrays;
 import javafx.application.Application; 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler; 
 import javafx.scene.shape.Circle; 
- 
+import javafx.scene.shape.Rectangle;
+import javafx.scene.input.MouseEvent;
+/**
+ * class that handles the GUI for othello.
+ * @author Aaron Bager
+ * @author Jessica Ricksgers
+ * @author Cody Chinn
+ * @author Joshua Stuart
+ * @version 2.0
+ */
 public class OthelloMain extends Application {
-	
+	/**
+	 * keeps track of the board for game logic purposes.
+	 */
 	private int[][] gameBoard = new int[8][8];
-	private Button[][] gameBoardNodes = new Button[8][8]; 
-	private OthelloRules rules = new OthelloRules(); 
+	/**
+	 * gameboard nodes, allows the player to interact with game.
+	 * 
+	 * removed buttons and replaced with rectangles.
+	 */
+	private Rectangle[][] gameBoardSquares = new Rectangle[8][8];
+	/**
+	 * rules class that keeps track of game logic.
+	 */
+	private OthelloRules rules = new OthelloRules();
+	/**
+	 * GridPane to attach JavaFX elements to.
+	 */
 	private GridPane board = new GridPane(); 
-	private boolean isLegal = false; 
-	private int blackScore = 0, whiteScore = 0;
-	private Label whiteScoreLabel = new Label();
+	/**
+	 * JavaFX label to display white score.
+	 */
+    private Label whiteScoreLabel = new Label();
+    /**
+     * JavaFX label to display black score. 
+     */
 	private Label blackScoreLabel = new Label();
+	/**
+	 * JavaFX label to show who's turn it is. 
+	 */
 	private Label turnLabel = new Label();
 
-	
+	/**
+	 * Used to start the game.
+	 * @param primaryStage Stage variable for JavaFX
+	 */
 	public void start(final Stage primaryStage) {
 		
 		for (int i = 0; i < 8; i++) {
@@ -38,56 +64,75 @@ public class OthelloMain extends Application {
 				column = j;
 				row = i; 
 				gameBoard[i][j] = 0; 
-				gameBoardNodes[i][j] = new Button();
-		//		gameBoardNodes[i][j].setGraphic(new ImageView(reversiSquare));
-				gameBoardNodes[i][j].setPrefHeight(64);
-				gameBoardNodes[i][j].setPrefWidth(64);
-				board.add(gameBoardNodes[i][j], j, i);
-				
-				gameBoardNodes[i][j].setOnAction(new EventHandler<ActionEvent>() {
+				gameBoardSquares[i][j] = new Rectangle();
+				gameBoardSquares[i][j].setHeight(64);
+				gameBoardSquares[i][j].setWidth(64);
+				gameBoardSquares[i][j].setFill(Color.GREEN);
+				gameBoardSquares[i][j].setStroke(Color.BLACK);
+				board.add(gameBoardSquares[i][j], j, i);
+				gameBoardSquares[i][j].setOnMouseClicked(
+						new EventHandler<MouseEvent>() {
 					@Override
-					public void handle(final ActionEvent event) {
-						if (rules.isMoveLegal(row, column))
-						{	
-							System.out.println(Arrays.deepToString(gameBoard).replace("], ", "]\n"));
-							System.out.println();
-							gameBoard = rules.placeTile(row, column);
-							System.out.println(Arrays.deepToString(gameBoard).replace("], ", "]\n"));
-							System.out.println();
-							for (int k = 0; k < 8; k++) {
-								int row1;
-								int column1; 
-								for (int l = 0; l < 8; l++) {
-									if (gameBoard[k][l] == 1) {	
-										board.add(new Circle(32, Color.BLACK), l, k); }
-									else if (gameBoard[k][l] == 2) {
-										board.add(new Circle(32, Color.WHITE), l, k);
-									}
-								}
+					public void handle(
+							final MouseEvent arg0) {
+						if (
+							rules.isMoveLegal(row,
+							column)) {	
+					gameBoard = rules.placeTile(row,
+							column);
+					for (int k = 0;
+							k < 8;
+							k++) {
+						int row1;
+						int column1; 
+						for (int l = 0;
+							l < 8;
+							l++) {
+					if (gameBoard[k][l] == 1) {	
+						board.add(new Circle(32,
+								Color.BLACK), 
+								l,
+								k); 
+							} else if (
+					  gameBoard[k][l] == 2) {
+					  board.add(new Circle(32, 
+							  Color.WHITE), l, k);
 							}
 						}
-						else {
-							System.out.println("NOT A LEGAL MOVE!");
+							}
+						} else {
+							turnLabel.setText(
+							"NOT A LEGAL MOVE!");
 						}
 						if (rules.getTurn() == 1) { 
-							turnLabel.setText("Black's turn!"); }
-						else {
-							turnLabel.setText("White's turn!");
+							turnLabel.setText(
+							"Black's turn!"); 
+							} else {
+							turnLabel.setText(
+							"White's turn!");
 						}
-						blackScoreLabel.setText("Black Score:" + String.valueOf(rules.getScore(1)));
-						whiteScoreLabel.setText("White Score:" + String.valueOf(rules.getScore(2)));
+						blackScoreLabel.setText(
+							"Black Score:" 
+						+ 
+						String.valueOf(
+						rules.getScore(1)));
+						whiteScoreLabel.setText(
+						"White Score:" 
+						+ String.valueOf(
+						rules.getScore(2)));
 						int possibleMoves = 0; 
 						for (int i = 0; i < 7; i++) {
-							for (int j = 0; j < 7; j++) {
-								if (rules.isMoveLegal(i, j)) {
-									possibleMoves++; 
+						for (int j = 0; j < 7; j++) {
+						if (rules.isMoveLegal(i, j)) {
+							possibleMoves++; 
 								}
 								
-								if (possibleMoves == 0) {
-									int winner = rules.declareWinner(); 
+						if (possibleMoves == 0) {
+					int winner = rules.declareWinner(); 
 								}
 							}
 						}
+						
 					}
 				});
 			}
